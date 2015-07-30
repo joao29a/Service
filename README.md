@@ -1,2 +1,2 @@
 # Service
-Service for you and you computer.
+Service for you and your computer.

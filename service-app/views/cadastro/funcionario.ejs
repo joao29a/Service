@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <div class="form-view">
-  <form method="post" action="/cadastro/criar">
+  <form method="post" action="/cadastro/funcionario/criar">
     <label>Nome:</label><input type="text" name="nome">
     <br><label>Email:</label><input type="text" name="email">
     <br><label>Senha:</label><input type="password" name="senha">
@@ -10,3 +10,10 @@
     </a>
   </form>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $("#cadastro-funcionario").attr("class", "active");
+    $(".page-header").html("Cadastro Funcionário");
+  });
+</script>

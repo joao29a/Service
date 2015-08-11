@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Service - Página Inicial</title>
+    <title>Service</title>
 
     
     <script src="/js/vendor/jquery-2.1.4.min.js"></script>
@@ -32,6 +32,16 @@
             + Import stylesheets from other directories
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
     -->
+
+    <!-- <style>
+      .dropdown-menu li:hover {
+	visibility: visible;
+      }
+
+      .dropdown:hover .dropdown-menu {
+	    display: block;
+      }
+    </style> -->
 
     <!--STYLES-->
     <link rel="stylesheet" href="/styles/bootstrap.min.css">
@@ -69,6 +79,22 @@
 	<div class="col-sm-3 col-md-2 sidebar">
 	  <ul class="nav nav-sidebar">
 	    <li id="homepage"><a href="/">Home</a></li>
+	  </ul>
+	  <ul class="nav nav-sidebar">
+	    <li class="dropdown">
+	    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cadastro <span class="caret"></span></a>
+	      <ul class="dropdown-menu">
+		<li><a href="/cadastro/funcionario">Funcionário</a></li>
+		<li><a href="/cadastro/cliente">Cliente</a></li>
+	      </ul>
+	    </li>
+	    <li class="dropdown">
+	    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultar <span class="caret"></span></a>
+	      <ul class="dropdown-menu">
+		<li><a href="/consultar/funcionario">Funcionário</a></li>
+		<li><a href="/consultar/cliente">Cliente</a></li>
+	      </ul>
+	    </li>
 	  </ul>
 	</div>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -136,5 +162,6 @@
     <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/vendor/bootstrap.min.js"></script>
     <!--SCRIPTS END-->
+
   </body>
 </html>

@@ -46,8 +46,10 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
   
-  'get /cadastro': {
-    view: 'cadastro/cadastro',
+  'get /cadastro/funcionario': {
+    view: 'cadastro/funcionario',
   },
+
+  'post /cadastro/funcionario/criar': 'FuncionarioController.criar',
 
 };

@@ -33,7 +33,7 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'homepage'
+    view: 'index'
   },
 
   /***************************************************************************
@@ -48,9 +48,6 @@ module.exports.routes = {
   
   'get /cadastro': {
     view: 'cadastro/cadastro',
-    locals: {
-      layout: 'cadastro/layout'
-    }
   },
 
 };

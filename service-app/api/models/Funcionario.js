@@ -18,6 +18,7 @@ module.exports = {
     autoridade: {
       type: "integer",
       required: true,
+      defaultsTo: 0
     },
   },
 

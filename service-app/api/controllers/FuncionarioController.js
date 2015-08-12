@@ -15,9 +15,19 @@ module.exports = {
    * `FuncionarioController.criar()`
    */
   criar: function (req, res) {
-    var nome = req.param('nome');
-    var email = req.param('email');
-    var senha = req.param('senha');
+    var funcionario = {
+      nome: req.param('nome'),
+      email: req.param('email'),
+      senha: req.param('senha'),
+      autoridade: 0
+    }
+    Funcionario.salvar(funcionario, function(state, message) {
+      if (state == 0) {
+        return res.view('cadastro/sucesso', {user: req.user[0], message: message});
+      } else {
+        return res.view('cadastro/erro', {user: req.user[0], message: message});
+      }
+    });
   },
 
   admin: function(req, res) {

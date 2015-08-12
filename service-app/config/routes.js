@@ -32,9 +32,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'index'
-  },
+  'get /': 'AuthController.index',
 
   /***************************************************************************
   *                                                                          *
@@ -45,11 +43,18 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-  
-  'get /cadastro/funcionario': {
-    view: 'cadastro/funcionario',
-  },
+ 
+  //criar usuario admin
+  'get /cadastro/funcionario/admin': 'FuncionarioController.admin',
+
+  'get /cadastro/funcionario': 'FuncionarioController.index',
 
   'post /cadastro/funcionario/criar': 'FuncionarioController.criar',
+
+  'get /login': 'AuthController.login',
+
+  'post /login': 'AuthController.validar',
+  
+  'get /logout': 'AuthController.sair',
 
 };

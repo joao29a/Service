@@ -45,9 +45,8 @@
 
     <!--STYLES-->
     <link rel="stylesheet" href="/styles/bootstrap.min.css">
-    <link rel="stylesheet" href="/styles/dashboard.css">
-    <link rel="stylesheet" href="/styles/importer.css">
     <!--STYLES END-->
+    <link rel="stylesheet" href="/styles/dashboard.css">
   </head>
 
   <body>
@@ -64,8 +63,8 @@
 	</div>
 	<div id="navbar" class="navbar-collapse collapse">
 	  <ul class="nav navbar-nav navbar-right">
-	    <li><a href="/cadastro">Cadastrar</a></li>
-	    <li><a href="/login">Entrar</a></li>
+	    <li><a id="usuario-logado" href="#"></a></li>
+	    <li><a href="/logout">Sair</a></li>
 	  </ul>
 	  <!-- <form class="navbar-form navbar-right">
 	    <input type="text" class="form-control" placeholder="Search...">
@@ -162,6 +161,10 @@
     <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/vendor/bootstrap.min.js"></script>
     <!--SCRIPTS END-->
+    
+    <script>
+      $("#usuario-logado").html("<%= user.email %>");
+    </script>
 
   </body>
 </html>

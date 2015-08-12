@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Service - Login</title>
+
+    <!--STYLES-->
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <!--STYLES END-->
+    
+    <link rel="stylesheet" href="/styles/signin.css">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin" method="post" action="/login">
+        <h2 class="form-signin-heading">Acesso ao sistema</h2>
+        <label for="inputEmail" class="sr-only">Email</label>
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+        <label for="inputPassword" class="sr-only">Senha</label>
+        <input type="password" name="senha" id="inputPassword" class="form-control" placeholder="Senha" required>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Lembrar de mim
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+        <% if (info) { %>
+        <center><div style="color:red;"><%= info.message %></div></center>
+        <% } %>
+      </form>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

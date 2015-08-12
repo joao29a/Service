@@ -25,8 +25,8 @@ module.exports.policies = {
   * access)                                                                  *
   *                                                                          *
   ***************************************************************************/
-
-  // '*': true,
+  
+  //'*': false,
 
   /***************************************************************************
   *                                                                          *
@@ -48,4 +48,14 @@ module.exports.policies = {
 		// before letting any users feed our rabbits
 		// feed : ['isNiceToAnimals', 'hasRabbitFood']
 	// }
+  '*': 'sessionAuth',
+  
+  AuthController: {
+    '*': true,
+    index: 'sessionAuth',
+  },
+
+  FuncionarioController: {
+    admin: true,
+  },
 };

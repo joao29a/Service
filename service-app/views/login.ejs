@@ -25,12 +25,14 @@
       <form class="form-signin" method="post" action="/login">
         <h2 class="form-signin-heading">Acesso ao sistema</h2>
         <label for="inputEmail" class="sr-only">Email</label>
-        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+        <input type="email" name="email" value="<%= email %>" id="inputEmail" class="form-control" placeholder="Email" required 
+          <% if (!email) { %> autofocus <% } %>>
         <label for="inputPassword" class="sr-only">Senha</label>
-        <input type="password" name="senha" id="inputPassword" class="form-control" placeholder="Senha" required>
+        <input type="password" name="senha" id="inputPassword" class="form-control" placeholder="Senha" required
+          <% if (email) { %> autofocus <% } %>>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me"> Lembrar de mim
+            <input type="checkbox" name="remember-me" value="remember-me"> Lembrar de mim
           </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>

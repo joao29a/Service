@@ -10,26 +10,40 @@ var passport = require('passport');
 module.exports = {
 
   index: function(req, res) {
-    return res.view('index', {user: req.user[0]});
+    return res.view('index', {user: Utils.getUser(req.user)});
   },
 
   login: function(req, res) {
-    res.view('login', {layout: '', info: ''});
+    res.view('login', {layout: '', info: '', email: ''});
   },
 
   validar: function(req, res) {
     passport.authenticate('local', function(err, user, info) {
       if (err || !user) {
-        return res.view('login', {layout: '', info: info});
+        return res.view('login', {layout: '', info: info, email: req.param('email')});
       }
       req.logIn(user, function(err) {
         if(err) res.send(err);
-        return res.redirect('/');
+        if (req.param('remember-me')) {
+          var token = Utils.randomString(64);
+          Token.save(token, user.id, function(err) {
+            if (!err) {
+              res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 604800000 }); // 7 days
+              return res.redirect('/');
+            }
+          });
+        } else return res.redirect('/');
       });
     })(req, res);
   },
 
   sair: function(req, res) {
+    var token = req.cookies.remember_me
+    Token.consume(token, function(err, consumed) {
+      if (!err && consumed)
+        console.log('Logout token: ' + consumed.token);
+    });
+    res.clearCookie('remember_me');
     req.logOut();
     res.redirect('/login');
   },

@@ -8,7 +8,7 @@
 module.exports = {
 	
   index: function (req, res) {
-    res.view('cadastro/funcionario', {user: req.user[0]});
+    res.view('cadastro/funcionario', {user: Utils.getUser(req.user)});
   },
 
   /**
@@ -23,9 +23,9 @@ module.exports = {
     }
     Funcionario.salvar(funcionario, function(state, message) {
       if (state == 0) {
-        return res.view('cadastro/sucesso', {user: req.user[0], message: message});
+        return res.view('cadastro/sucesso', {user: Utils.getUser(req.user), message: message});
       } else {
-        return res.view('cadastro/erro', {user: req.user[0], message: message});
+        return res.view('cadastro/erro', {user: Utils.getUser(req.user), message: message});
       }
     });
   },

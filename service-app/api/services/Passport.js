@@ -1,5 +1,6 @@
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
+    RememberMeStrategy = require('passport-remember-me').Strategy,
     bcrypt = require('bcrypt');
 
 passport.serializeUser(function(user, done) {
@@ -21,6 +22,27 @@ passport.use(new LocalStrategy({usernameField: 'email',
         if(!res) return done(null, false, {message: 'Email ou senha inválido'});
         return done(null, user);
       });
+    });
+  }
+  ));
+
+passport.use(new RememberMeStrategy(
+  function(token, done) {
+    Token.consume(token, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      Funcionario.findOne({id: user.id_usuario}).exec(function(err, found) {
+        if (err) return done(err);
+        if (!found) return done(null, false, {message: 'Usuario não encontrado'}); 
+        return done(null, found);
+      });
+    });
+  },
+  function(user, done) {
+    var token = Utils.randomString(64);
+    Token.save(token, user.id, function(err) {
+      if (err) { return done(err); }
+      return done(null, token);
     });
   }
 ));

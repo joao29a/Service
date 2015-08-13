@@ -25,7 +25,8 @@
     "sails-mysql": "*",
     "bcrypt": "*",
     "passport": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "passport-remember-me": "*"
   },
   "scripts": {
     "debug": "node debug app.js",

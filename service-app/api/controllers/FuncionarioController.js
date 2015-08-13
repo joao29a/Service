@@ -42,5 +42,18 @@ module.exports = {
     });
   },
 
+  listar: function(req, res) {
+    var user = Utils.getUser(req.user);
+    Funcionario.listar(function(err, result) {
+      if (err) return res.view('consulta/funcionario', {user: user, erro: err});
+      return res.view('consulta/funcionario', {user: user, erro: '', data: result});
+    });
+  },
+
+  listarFiltro: function(req, res) {
+    var user = Utils.getUser(req.user);
+    return res.view('consulta/funcionario', {user: user, erro: '', data: []});
+  },
+
 };
 

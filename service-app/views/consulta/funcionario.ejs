@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<form method="post" action="/consulta/funcionario">
+  <input type="text" name="busca">
+  <input type="submit" value="Buscar">
+</form>
+<br><h2>Lista</h2>
+<% if (!erro) { %>
+  <% for (var i in data) { %>
+    <%= data[i].nome %>, <%= data[i].email %><br>
+  <% } %>
+<% } else { %>
+  <% erro %>
+<% } %> 
+
+<script>
+  $(document).ready(function() {
+    $("#consulta").attr("class", "active");
+    $(".page-header").html("Consulta Funcionário");
+  });
+</script>

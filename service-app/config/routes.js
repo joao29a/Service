@@ -56,5 +56,9 @@ module.exports.routes = {
   'post /login': 'AuthController.validar',
   
   'get /logout': 'AuthController.sair',
-
+  
+  'get /consulta/funcionario': 'FuncionarioController.listar',
+  
+  'post /consulta/funcionario': 'FuncionarioController.listarFiltro',
+  
 };

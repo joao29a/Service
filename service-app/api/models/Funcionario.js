@@ -44,4 +44,11 @@ module.exports = {
       });
     });
   },
+
+  listar: function(callback) {
+    Funcionario.query('select * from funcionario', function(err, result) {
+      if (err) return callback(err, null);
+      return callback(null, result);
+    });
+  },
 };

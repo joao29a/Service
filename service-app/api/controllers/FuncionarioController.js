@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-	
+
   index: function (req, res) {
     var funcionario = {
       nome: '',
@@ -36,8 +36,8 @@ module.exports = {
       return res.view('cadastro/funcionario', {user: Utils.getUser(req.user), message: 'Preencha o email!',
         funcionario: funcionario, erro: 2});
     else if (funcionario.senha.length == 0)
-        return res.view('cadastro/funcionario', {user: Utils.getUser(req.user), message: 'Preencha a senha!',
-          funcionario: funcionario, erro: 5});
+      return res.view('cadastro/funcionario', {user: Utils.getUser(req.user), message: 'Preencha a senha!',
+        funcionario: funcionario, erro: 5});
     Funcionario.salvar(funcionario, function(state, message) {
       if (state == 0) {
         return res.view('cadastro/sucesso', {user: Utils.getUser(req.user), message: message});
@@ -65,13 +65,21 @@ module.exports = {
     var user = Utils.getUser(req.user);
     Funcionario.listar(function(err, result) {
       if (err) return res.view('consulta/funcionario', {user: user, erro: err});
-      return res.view('consulta/funcionario', {user: user, erro: '', data: result});
+      return res.view('consulta/funcionario', {user: user, erro: '', data: result, busca: ''});
     });
   },
 
   listarFiltro: function(req, res) {
     var user = Utils.getUser(req.user);
-    return res.view('consulta/funcionario', {user: user, erro: '', data: []});
+    var query = {
+      nome: req.param('busca'),
+      tipo: req.param('tipo'),
+      autoridade: req.param('autoridade')
+    };
+    Funcionario.listarFiltro(query, function(err, result) {
+      if (err) return res.view('consulta/funcionario', {user: user, erro: err});
+      return res.view('consulta/funcionario', {user: user, erro: '', data: result, busca: query});
+    });
   },
 
 };

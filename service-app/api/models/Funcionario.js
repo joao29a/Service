@@ -51,7 +51,30 @@ module.exports = {
   },
 
   listar: function(callback) {
-    Funcionario.query('select * from funcionario', function(err, result) {
+    Funcionario.find(function(err, result) {
+      if (err) return callback(err, null);
+      return callback(null, result);
+    });
+  },
+
+  listarFiltro: function(query, callback) {
+    if (query.nome == undefined) return this.listar(callback);
+    var myQuery = Funcionario.find();
+    var whereFilter = {}
+    if (query.tipo != 'Todos') {
+      whereFilter.tipo = query.tipo;
+    }
+    if (query.autoridade != 'Todos') {
+      whereFilter.autoridade = query.autoridade;
+    }
+    if (query.nome.length > 0) {
+      whereFilter.nome = {contains: query.nome};
+      whereFilter.email = {contains: query.nome};
+    }
+    if (Object.keys(whereFilter).length != 0) {
+      myQuery.where({or: [whereFilter]});
+    }
+    myQuery.exec(function(err, result) {
       if (err) return callback(err, null);
       return callback(null, result);
     });

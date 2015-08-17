@@ -70,6 +70,10 @@ module.exports.routes = {
   
   'post /consulta/funcionario': 'FuncionarioController.listarFiltro',
   
+  '/consulta/funcionario/:id': 'FuncionarioController.mostrar',
+  
+  '/alterar/funcionario/:id': 'FuncionarioController.alterar',
+  
   // Novo
   'post /consulta/maquina': 'MaquinaController.listarFiltro',
 };

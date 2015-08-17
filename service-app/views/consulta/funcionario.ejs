@@ -33,7 +33,7 @@
       <% var j = i %>
       <tr>
         <th scope="row"><%- ++j %></th>
-        <td><%- data[i].nome %></td>
+        <td><a href="/consulta/funcionario/<%- data[i].id %>"><%- data[i].nome %></a></td>
         <td><%- data[i].email %></td>
         <td><%- data[i].tipo %></td>
         <% if (data[i].autoridade == 0) { %>

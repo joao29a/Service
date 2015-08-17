@@ -163,6 +163,7 @@
     <!--SCRIPTS END-->
     
     <script>
+      $("#usuario-logado").attr("href", "/consulta/funcionario/<%- user.id %>");
       $("#usuario-logado").html("<%= user.email %>");
     </script>
 

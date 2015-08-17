@@ -64,7 +64,7 @@ module.exports = {
   listar: function(req, res) {
     var user = Utils.getUser(req.user);
     Funcionario.listar(function(err, result) {
-      if (err) return res.view('consulta/funcionario', {user: user, erro: err});
+      if (err) return res.view('consulta/funcionario', {user: user, erro: err, busca: ''});
       return res.view('consulta/funcionario', {user: user, erro: '', data: result, busca: ''});
     });
   },
@@ -79,6 +79,32 @@ module.exports = {
     Funcionario.listarFiltro(query, function(err, result) {
       if (err) return res.view('consulta/funcionario', {user: user, erro: err});
       return res.view('consulta/funcionario', {user: user, erro: '', data: result, busca: query});
+    });
+  },
+
+  mostrar: function(req, res) {
+    var user = Utils.getUser(req.user);
+    var id = req.param('id');
+    Funcionario.listarPorId(id, function(err, result) {
+      if (err || !result) return res.view('404', {layout: ''});
+      return res.view('alterar/funcionario', {user: user, erro: '', message: '', funcionario: result});
+    });
+  },
+
+  alterar: function (req, res) {
+    var user = Utils.getUser(req.user);
+    var dadoUsuario = {
+      id: req.param('id'),
+      nome: req.param('nome'),
+      email: req.param('email'),
+      tipo: req.param('tipo'),
+      autoridade: req.param('autoridade')
+    };
+    Funcionario.atualizar(dadoUsuario, function(err, result) {
+      if (err || !result) {
+        return res.view('alterar/funcionario', {user: user, erro: err.erro, message: err.message, funcionario: dadoUsuario});
+      }
+      return res.view('alterar/sucesso', {user: user, message: 'Usuário ' + result[0].nome + ' alterado com sucesso!'});
     });
   },
 

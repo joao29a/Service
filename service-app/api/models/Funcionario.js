@@ -71,12 +71,31 @@ module.exports = {
       whereFilter.nome = {contains: query.nome};
       whereFilter.email = {contains: query.nome};
     }
+    console.log(whereFilter);
     if (Object.keys(whereFilter).length != 0) {
       myQuery.where({or: [whereFilter]});
     }
     myQuery.exec(function(err, result) {
       if (err) return callback(err, null);
       return callback(null, result);
+    });
+  },
+
+  listarPorId: function(id, callback) {
+    Funcionario.findOne({id: id}).exec(function (err, found) {
+      if (err) return callback(1, null);
+      return callback(null, found);
+    });
+  },
+
+  atualizar: function(user, callback) {
+    Funcionario.findOne({email: user.email}).exec(function(err, found){
+      if (err) return callback(1, null);
+      if (found && found.id != user.id) return callback({erro: 2, message: 'Email já cadastrado!'}, null);
+      Funcionario.update({id: user.id}, user).exec(function (err, updated) {
+        if (err) return callback(1, null);
+        return callback(null, updated);
+      });
     });
   },
 };

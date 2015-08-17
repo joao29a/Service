@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<div class="form-view">
+  <form method="post" action="/alterar/funcionario/<%- funcionario.id %>">
+    <div id="div-nome" class="form-group" style="width:300px">
+      <label for="exampleInputNome1">Nome Completo</label>
+      <input type="text" class="form-control" value="<%- funcionario.nome %>" id="inputNome" name="nome" placeholder="Nome" required>
+    </div>
+    <div id="div-email" class="form-group" style="width:300px">
+      <label for="exampleInputEmail1">Email</label>
+      <input type="email" name="email" class="form-control" value="<%- funcionario.email %>" id="inputEmail" placeholder="Email" required>
+      <div id="erroEmail" style="color:red;">
+        <%- message %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="tipo">Tipo Funcionário</label>
+      <br>
+      <select name="tipo" id="select-tipo">
+        <option value="Atendente" >Atendente</option>
+        <option value="Técnico">Técnico</option>
+      </select> 
+    </div>
+    <div class="form-group">
+      <label for="autoridade">Autoridade</label>
+      <br>
+      <select name="autoridade" id="select-autoridade">
+        <option value="1">Normal</option>
+        <% if (user.autoridade === 0) { %>
+        <option value="0">Administrador</option>
+        <% } %>
+      </select> 
+    </div>
+    <button type="submit" class="btn btn-default">Alterar</button>
+  </form>
+</div>
+
+<script>
+$(document).ready(function() {
+    $(".page-header").html("Alterar Funcionário");
+    });
+$("#select-tipo").val("<%- funcionario.tipo %>");
+$("#select-autoridade").val("<%- funcionario.autoridade %>");
+$("#erroEmail").hide();
+  <% if (erro == 2) { %>
+    $("#div-email").attr("class", "has-error");
+    $("#erroEmail").show();
+    <% } %>
+
+</script>

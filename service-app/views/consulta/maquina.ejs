@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<form method="post" action="/consulta/maquina">
+    <input type="text" name="busca">
+    <input type="submit" value="Buscar">
+</form>
+<br><h2>Lista</h2>
+<% if (!erro) { %>
+    <% for (var i in data) { %>
+        <%= data[i].fabricante %>, <%= data[i].modelo %>, <%= data[i].dono %>,
+        <%= data[i].video %>, <%= data[i].ram %>, <%= data[i].processador %>, 
+        <%= data[i].placamae %><br>
+    <% } %>
+<% } else { %>
+    <% erro %>
+<% } %>
+
+<script>
+    $(document).ready(function() {
+        $("#consulta").attr("class", "active");
+        $(".page-header").html("Consulta Máquina")
+    });
+</script>

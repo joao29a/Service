@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<div class="form-view">
+    <form method="post" action="/cadastro/maquina/criar">
+        <label>Fabricante:</label><input type="text" name="fabricante">
+        <br><label>Modelo:</label><input type="text" name="modelo">
+        <br><label>Dono:</label><input type="text" name="dono">
+        <br><label>Vídeo:</label><input type="text" name="video">
+        <br><label>RAM:</label><input type="text" name="ram">
+        <br><label>Processador:</label><input type="text" name="processador">
+        <br><label>Placa-mãe:</label><input type ="text" name="placamae">
+        <br><input type="submit" value="Cadastrar">
+        <a href="/" style="text-decoration:none;">
+            <input type="button" value="Cancelar">
+        </a>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#cadastro").attr("class", "active");
+        $(".page-header").html("Cadastro Máquinas");
+    });
+</script>

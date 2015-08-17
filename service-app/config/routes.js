@@ -49,7 +49,13 @@ module.exports.routes = {
 
   'get /cadastro/funcionario': 'FuncionarioController.index',
 
+  // Novo
+  'get /cadastro/maquina': 'MaquinaController.index',
+
   'post /cadastro/funcionario/criar': 'FuncionarioController.criar',
+
+  // Novo
+  'post /cadastro/maquina/criar': 'MaquinaController.criar',
 
   'get /login': 'AuthController.login',
 
@@ -58,7 +64,12 @@ module.exports.routes = {
   'get /logout': 'AuthController.sair',
   
   'get /consulta/funcionario': 'FuncionarioController.listar',
+
+  // Novo
+  'get /consulta/maquina': 'MaquinaController.listar',
   
   'post /consulta/funcionario': 'FuncionarioController.listarFiltro',
   
+  // Novo
+  'post /consulta/maquina': 'MaquinaController.listarFiltro',
 };

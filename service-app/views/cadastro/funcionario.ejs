@@ -1,19 +1,73 @@
 <!DOCTYPE html>
 <div class="form-view">
+  Campos em * são obrigatórios!
+  <br><br>
   <form method="post" action="/cadastro/funcionario/criar">
-    <label>Nome:</label><input type="text" name="nome">
-    <br><label>Email:</label><input type="text" name="email">
-    <br><label>Senha:</label><input type="password" name="senha">
-    <br><input type="submit" value="Cadastrar">
-    <a href="/" style="text-decoration:none;">
-      <input type="button" value="Cancelar">
-    </a>
+    <div id="div-nome" class="form-group" style="width:300px">
+      <label for="exampleInputNome1">* Nome Completo</label>
+      <input type="text" class="form-control" value="<%- funcionario.nome %>" id="inputNome" name="nome" placeholder="Nome">
+      <div id="erroNome" style="color:red;">
+        <%- message %>
+      </div>
+    </div>
+    <div id="div-email" class="form-group" style="width:300px">
+      <label for="exampleInputEmail1">* Email</label>
+      <input type="email" name="email" class="form-control" value="<%- funcionario.email %>" id="inputEmail" placeholder="Email">
+      <div id="erroEmail" style="color:red;">
+        <%- message %>
+      </div>
+    </div>
+    <div class="form-group" style="width:200px">
+      <label for="exampleInputPassword1">* Senha</label>
+      <input type="password" name="senha" class="form-control" id="exampleInputPassword1" placeholder="Senha">
+      <div id="erroSenha" style="color:red;">
+        <%- message %>
+      </div>
+
+    </div>
+    <div class="form-group">
+      <label for="tipo">Tipo Funcionário</label>
+      <br>
+      <select name="tipo" id="select-tipo">
+        <option value="Atendente" >Atendente</option>
+        <option value="Técnico">Técnico</option>
+      </select> 
+    </div>
+    <div class="form-group">
+      <label for="autoridade">Autoridade</label>
+      <br>
+      <select name="autoridade" id="select-autoridade">
+        <option value="1">Normal</option>
+        <% if (user.autoridade === 0) { %>
+        <option value="0">Administrador</option>
+        <% } %>
+      </select> 
+    </div>
+    <button type="submit" class="btn btn-default">Cadastrar</button>
   </form>
 </div>
 
 <script>
-  $(document).ready(function() {
+$(document).ready(function() {
     $("#cadastro").attr("class", "active");
     $(".page-header").html("Cadastro Funcionário");
-  });
+    });
+$("#select-tipo").val("<%- funcionario.tipo %>");
+$("#select-autoridade").val("<%- funcionario.autoridade %>");
+$("#erroNome").hide();
+$("#erroEmail").hide();
+$("#erroSenha").hide();
+<% if (erro == 1) { %>
+  $("#div-nome").attr("class", "has-error");
+  $("#erroNome").show();
+  <% } %>
+  <% if (erro == 2 || erro == 3) { %>
+    $("#div-email").attr("class", "has-error");
+    $("#erroEmail").show();
+    <% } %>
+    <% if (erro == 5) { %>
+      $("#div-senha").attr("class", "has-error");
+      $("#erroSenha").show();
+      <% } %>
+
 </script>

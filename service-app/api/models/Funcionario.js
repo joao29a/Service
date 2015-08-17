@@ -15,10 +15,15 @@ module.exports = {
       type: "string",
       required: true,
     },
+    tipo: {
+      type: "string",
+      required: true,
+      defaultsTo: "Atendente"
+    },
     autoridade: {
       type: "integer",
       required: true,
-      defaultsTo: 0
+      defaultsTo: 1
     },
   },
 
@@ -30,14 +35,14 @@ module.exports = {
 
   salvar: function(user, callback) {
     Funcionario.findOne({email: user.email}).exec(function(err, found) {
-      if (err) return callback(1, err);
-      if (found) return callback(1, "Email em uso!");
+      if (err) return callback(4, err);
+      if (found) return callback(3, "Email em uso!");
       bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(user.senha, salt, function(err, hash) {
-          if(err) return callback(1, err);
+          if(err) return callback(4, err);
           user.senha = hash;
           Funcionario.create(user).exec(function(err, created) {
-            if (err) return callback(1, err);
+            if (err) return callback(4, err);
             else return callback(0, "Usuário " + created.nome + " criado!");
           });
         });

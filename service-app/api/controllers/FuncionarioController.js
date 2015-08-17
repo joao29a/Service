@@ -8,7 +8,14 @@
 module.exports = {
 	
   index: function (req, res) {
-    res.view('cadastro/funcionario', {user: Utils.getUser(req.user)});
+    var funcionario = {
+      nome: '',
+      email: '',
+      senha: '',
+      tipo: 'Atendente',
+      autoridade: '1',
+    };
+    res.view('cadastro/funcionario', {user: Utils.getUser(req.user), message: '', funcionario: funcionario, erro: 0});
   },
 
   /**
@@ -19,13 +26,24 @@ module.exports = {
       nome: req.param('nome'),
       email: req.param('email'),
       senha: req.param('senha'),
-      autoridade: 0
+      tipo: req.param('tipo'),
+      autoridade: req.param('autoridade')
     }
+    if (funcionario.nome.length == 0)
+      return res.view('cadastro/funcionario', {user: Utils.getUser(req.user), message: 'Preencha o nome!',
+        funcionario: funcionario, erro: 1});
+    else if (funcionario.email.length == 0)
+      return res.view('cadastro/funcionario', {user: Utils.getUser(req.user), message: 'Preencha o email!',
+        funcionario: funcionario, erro: 2});
+    else if (funcionario.senha.length == 0)
+        return res.view('cadastro/funcionario', {user: Utils.getUser(req.user), message: 'Preencha a senha!',
+          funcionario: funcionario, erro: 5});
     Funcionario.salvar(funcionario, function(state, message) {
       if (state == 0) {
         return res.view('cadastro/sucesso', {user: Utils.getUser(req.user), message: message});
       } else {
-        return res.view('cadastro/erro', {user: Utils.getUser(req.user), message: message});
+        return res.view('cadastro/funcionario', {user: Utils.getUser(req.user), message: message,
+          funcionario: funcionario, erro: state});
       }
     });
   },
@@ -35,6 +53,7 @@ module.exports = {
       nome: 'admin',
       email: 'admin@service.com',
       senha: 'admin123',
+      tipo: 'Técnico',
       autoridade: 0
     };
     Funcionario.salvar(funcionario, function(state, message) {

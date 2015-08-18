@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <form method="post" action="/consulta/maquina">
-    <input type="text" name="busca">
+    <input type="text" name="busca" value="<%- busca.nome %>" placeholder="Insira Fabricante, Modelo ou Dono">
     <input type="submit" value="Buscar">
 </form>
+
 <br><h2>Lista</h2>
 <% if (!erro) { %>
-    <% for (var i in data) { %>
-        <%= data[i].fabricante %>, <%= data[i].modelo %>, <%= data[i].dono %>,
-        <%= data[i].video %>, <%= data[i].ram %>, <%= data[i].processador %>, 
-        <%= data[i].placamae %><br>
-    <% } %>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Fabricante</th>
+                <th>Modelo</th>
+                <th>Dono</th>
+                <th>Vídeo</th>
+                <th>RAM</th>
+                <th>Processador</th>
+                <th>Placa-mãe</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% for (var i in data) { %>
+        <% var j = i %>
+        <tr>
+        <th scope="row"><%- ++j %></th>
+        <td><a href="/consulta/maquina/<%- data[i].id %>"><%- data[i].fabricante%></a></td>
+        <td><%- data[i].modelo %></td> 
+        <td><%- data[i].dono %></td>
+        <td><%= data[i].video %></td>
+        <td><%= data[i].ram %></td> 
+        <td><%= data[i].processador %></td>
+        <td><%= data[i].placamae %></td>
+        </tr>
+        <% } %>
+        </tbody>
+    </table>
 <% } else { %>
     <% erro %>
 <% } %>
@@ -17,6 +42,10 @@
 <script>
     $(document).ready(function() {
         $("#consulta").attr("class", "active");
-        $(".page-header").html("Consulta Máquina")
+        $(".page-header").html("Consulta Máquina");
+        <% if (busca.tipo != undefined) { %>
+            $("#select-tipo").val("<%- busca.tipo %>");
+            $("#select-autoridade").val("<%- busca.autoridade %>");
+        <% } %>
     });
 </script>

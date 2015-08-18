@@ -41,15 +41,49 @@ module.exports = {
   salvar: function(user, callback) {
     Maquina.create(user).exec(function(err, created) {
         if(err) return callback(1, err);
-        else return callback(0, "Máquina criada!");
+        else return callback(0, "Máquina cadastrada!");
     });
   },
 
   listar: function(callback) {
-    Maquina.query('select * from maquina', function(err, result) {
+    Maquina.find(function(err, result) {
         if (err) return callback(err, null);
         return callback(null, result);
     });
+  },
+
+  listarFiltro: function(query, callback) {
+    if (query.nome == undefined) return this.listar(callback);
+    var myQuery = Maquina.find();
+    var whereFilter = {}
+
+    if (query.nome.lenght > 0) {
+        whereFilter.fabricante = {contains: query.nome};
+        whereFilter.modelo = {contains: query.nome};
+        whereFilter.dono = {contains: query.nome};
+    }
+
+    if (Object.keys(whereFilter).lenght != 0) {
+        myQuery.where({or: [whereFilter]});
+    } 
+    myQuery.exec(function(err, result) {
+        if (err) return callback(err, null);
+        return callback(null, result);
+    });
+  },
+
+  listarPorId: function(id, callback) {
+    Maquina.findOne({id: id}).exec(function (err, found) {
+        if (err) return callback(1, null);
+        return callback(null, found);
+    });
+  },
+
+  atualizar: function(user, callback) {
+    Maquina.update({id: user.id}, user).exec(function (err, updated) {
+        if (err) return callback(1, null);
+        return callback(null, updated);
+    })
   },
 
 };

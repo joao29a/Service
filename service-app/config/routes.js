@@ -51,11 +51,13 @@ module.exports.routes = {
 
   // Novo
   'get /cadastro/maquina': 'MaquinaController.index',
+  //
 
   'post /cadastro/funcionario/criar': 'FuncionarioController.criar',
 
   // Novo
   'post /cadastro/maquina/criar': 'MaquinaController.criar',
+  //
 
   'get /login': 'AuthController.login',
 
@@ -67,13 +69,21 @@ module.exports.routes = {
 
   // Novo
   'get /consulta/maquina': 'MaquinaController.listar',
-  
+  //
+
   'post /consulta/funcionario': 'FuncionarioController.listarFiltro',
-  
-  '/consulta/funcionario/:id': 'FuncionarioController.mostrar',
-  
-  '/alterar/funcionario/:id': 'FuncionarioController.alterar',
   
   // Novo
   'post /consulta/maquina': 'MaquinaController.listarFiltro',
+  //
+
+  '/consulta/funcionario/:id': 'FuncionarioController.mostrar',
+  
+  '/alterar/funcionario/:id': 'FuncionarioController.alterar',
+
+  // Novo
+  '/consulta/maquina/:id': 'MaquinaController.mostrar',
+
+  '/alterar/maquina/:id': 'MaquinaController.alterar',
+  //
 };

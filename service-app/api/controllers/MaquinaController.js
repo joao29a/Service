@@ -8,7 +8,16 @@
 module.exports = {
     
     index: function (req, res) {
-        res.view('cadastro/maquina', {user: Utils.getUser(req.user)});
+        var maquina = {
+            fabricante: '',
+            modelo: '',
+            dono: '',
+            video: '',
+            ram: '',
+            processador: '',
+            placamae: '',
+        };
+        res.view('cadastro/maquina', {user: Utils.getUser(req.user), message: '', maquina: maquina, erro: 0});
     },
 
     criar: function (req, res) {
@@ -22,12 +31,35 @@ module.exports = {
             placamae: req.param('placamae'),
         }
 
+        if (maquina.fabricante.lenght == 0)
+            return res.view('cadastro/maquina', {user: Utils.getUser(req.user), message: 'Preencha o fabricante!',
+                maquina: maquina, erro: 1});
+        else if (maquina.modelo.lenght == 0)
+            return res.view('cadastro/maquina', {user: Utils.getUser(req.user), message: 'Preencha o modelo!',
+                maquina: maquina, erro: 2});
+        else if (maquina.dono.lenght == 0)
+            return res.view('cadastro/maquina', {user: Utils.getUser(req.user), message: 'Preencha o dono!',
+                maquina: maquina, erro: 3}); 
+        else if (maquina.video.lenght == 0)
+            return res.view('cadastro/maquina', {user: Utils.getUser(req.user), message: 'Preencha o video!',
+                maquina: maquina, erro: 4}); 
+        else if (maquina.ram.lenght == 0)
+            return res.view('cadastro/maquina', {user: Utils.getUser(req.user), message: 'Preencha o ram!',
+                maquina: maquina, erro: 5}); 
+        else if (maquina.processador.lenght == 0)
+            return res.view('cadastro/maquina', {user: Utils.getUser(req.user), message: 'Preencha o processador!',
+                maquina: maquina, erro: 6});
+        else if (maquina.placamae.lenght == 0)
+            return res.view('cadastro/maquina', {user: Utils.getUser(req.user), message: 'Preencha a Placa-mãe!',
+                maquina: maquina, erro: 7});
+
         Maquina.salvar(maquina, function(state, message) {
             if (state == 0) {
                 /* verificar essas views */
                 return res.view('cadastro/sucesso', {user: Utils.getUser(req.user), message: message});
             } else {
-                return res.view('cadastro/erro', {user: Utils.getUser(req.user), message: message});
+                return res.view('cadastro/erro', {user: Utils.getUser(req.user), message: message, 
+                    maquina: maquina, erro: state});
             }
         });
     },
@@ -35,15 +67,51 @@ module.exports = {
     listar: function(req, res) {
         var user = Utils.getUser(req.user);
         Maquina.listar(function(err, result) {
-            if (err) return res.view('consulta/maquina', {user: user, erro: err});
-            return res.view('consulta/maquina', {user: user, erro: '', data: result});
+            if (err) return res.view('consulta/maquina', {user: user, erro: err, busca: ''});
+            return res.view('consulta/maquina', {user: user, erro: '', data: result, busca: ''});
         });
     },
 
     listarFiltro: function(req, res) {
         var user = Utils.getUser(req.user);
-        return res.view('consulta/maquina', {user: user, erro: '', data: []});
+        var query = {
+            fabricante: req.param('busca')
+        };
+        Maquina.listarFiltro(query, function(err, result) {
+            if (err) return res.view('consulta/maquina', {user: user, erro: err});
+            return res.view('consulta/maquina', {user: user, erro: '', data: result, busca: query});
+        });  
     },
-    
+
+    mostrar: function(req, res) {
+        var user = Utils.getUser(req.user);
+        var id = req.param('id');
+        Maquina.listarPorId(id, function(err, result) {
+            if (err || !result) return res.view('404', {layout: ''});
+            return res.view('alterar/maquina', {user: user, erro: '', message: '', maquina: result})
+        });
+    },
+
+    alterar: function (req, res) {
+        var user = Utils.getUser(req.user);
+        var dadoUsuario = {
+            id: req.param('id'),
+            fabricante: req.param('fabricante'),
+            modelo: req.param('modelo'),
+            dono: req.param('dono'),
+            video: req.param('video'),
+            ram: req.param('ram'),
+            processador: req.param('processador'),
+            placamae: req.param('placamae')
+        };
+        Maquina.atualizar(dadUsuario, function(err, result) {
+            if (err || !result) {
+                return res.view('alterar/maquina', {user: user, erro: err.erro,
+                    message: err.message, maquina: dadoUsuario});
+            }
+            return res.view('alterar/sucesso', {user: user, message: 'Maquina alterada!'});
+        });
+    },
+
 };
 

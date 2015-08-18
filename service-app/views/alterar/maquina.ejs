@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <div class="form-view">
-    Campos em * são obrigatórios!
-    <br><br>
-    <form method="post" action="/cadastro/maquina/criar">
-        
+  <form method="post" action="/alterar/maquina/<%- maquina.id %>">
+    
         <div id="div-fabricante" class="form-group" style="width:300px">
         <label for="exampleInputFabricante1">* Fabricante:</label>
         <input type="text" name="fabricante" value="<%- maquina.fabricante %>" id="inputFabricante" name="Fabricante" placeholder="Fabricante">
@@ -60,57 +58,12 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-default">Cadastrar</button>
-    </form>
+    <button type="submit" class="btn btn-default">Alterar</button>
+  </form>
 </div>
 
 <script>
-    $(document).ready(function() {
-        $("#cadastro").attr("class", "active");
-        $(".page-header").html("Cadastro Máquinas");
-    });
-
-    $("#erroFabricante").hide();
-    $("#erroModelo").hide();
-    $("#erroDono").hide();
-    $("#erroVideo").hide();
-    $("#erroRam").hide();
-    $("#erroProcessador").hide();
-    $("#erroPlacamae").hide();
-    
-    <% if (erro == 1) { %>
-        $("#div-fabricante").attr("class", "has-error");
-        $("#erroFabricante").show();
-    <% } %>
-
-    <% if (erro == 2) { %>
-        $("#div-modelo").attr("class", "has-error");
-        $("#erroModelo").show();
-    <% } %>
-
-    <% if (erro == 3) { %>
-        $("#div-dono").attr("class", "has-error");
-        $("#erroDono").show();
-    <% } %>
-
-    <% if (erro == 4) { %>
-        $("#div-video").attr("class", "has-error");
-        $("#erroRam").show();
-    <% } %>
-
-    <% if (erro == 5) { %>
-        $("#div-ram").attr("class", "has-error");
-        $("#erroRam").show();
-    <% } %>
-
-    <% if (erro == 6) { %>
-        $("#div-processador").attr("class", "has-error");
-        $("#erroProcessador").show();
-    <% } %>
-
-    <% if (erro == 7) { %>
-        $("#div-placamae").attr("class", "has-error");
-        $("#erroPlacamae").show();
-    <% } %>
-
+$(document).ready(function() {
+    $(".page-header").html("Alterar Máquina");
+});
 </script>

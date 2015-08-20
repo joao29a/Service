@@ -57,5 +57,6 @@ module.exports.policies = {
 
   FuncionarioController: {
     admin: true,
+    ativar: ['sessionAuth', 'ativo']
   },
 };

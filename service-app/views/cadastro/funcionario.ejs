@@ -38,7 +38,7 @@
       <br>
       <select name="autoridade" id="select-autoridade">
         <option value="1">Normal</option>
-        <% if (user.autoridade === 0) { %>
+        <% if (user.autoridade != 1) { %>
         <option value="0">Administrador</option>
         <% } %>
       </select> 

@@ -1,5 +1,18 @@
 <!DOCTYPE html>
 <div class="form-view">
+  <label for="ativo">Estado da conta: </label>
+  <% if (funcionario.ativo) { %>
+    Ativada 
+    <% if (user.autoridade === 0 || (user.autoridade === 2 && funcionario.id != user.id)) { %>
+      <br><button type="submit" class="btn btn-danger ativar-button" value="false">Desativar conta</button>
+    <% } %>
+  <% } else { %>
+    Desativada
+    <% if (user.autoridade === 0 || (user.autoridade === 2 && funcionario.id != user.id)) { %>
+      <br><button type="submit" class="btn btn-danger ativar-button" value="true">Ativar conta</button>
+    <% } %>
+  <% } %>
+  <br><br>
   <form method="post" action="/alterar/funcionario/<%- funcionario.id %>">
     <div id="div-nome" class="form-group" style="width:300px">
       <label for="exampleInputNome1">Nome Completo</label>
@@ -20,16 +33,20 @@
         <option value="Técnico">Técnico</option>
       </select> 
     </div>
-    <div class="form-group">
-      <label for="autoridade">Autoridade</label>
-      <br>
-      <select name="autoridade" id="select-autoridade">
-        <option value="1">Normal</option>
-        <% if (user.autoridade === 0) { %>
-        <option value="0">Administrador</option>
-        <% } %>
-      </select> 
-    </div>
+    <% if (user.autoridade != 2 || funcionario.id != user.id) { %>
+      <div class="form-group">
+	<label for="autoridade">Autoridade</label>
+	<br>
+	<select name="autoridade" id="select-autoridade" 
+	  <% if (user.autoridade == 1) { %> 
+	    disabled 
+	  <% } %>
+	  >
+	  <option value="1">Normal</option>
+	  <option value="0">Administrador</option>
+	</select> 
+      </div>
+    <% } %>
     <button type="submit" class="btn btn-default">Alterar</button>
   </form>
 </div>
@@ -45,5 +62,12 @@ $("#erroEmail").hide();
     $("#div-email").attr("class", "has-error");
     $("#erroEmail").show();
     <% } %>
+
+$(".ativar-button").click(function() {
+  $.get("/alterar/funcionario/<%- funcionario.id %>/" + $(".ativar-button").val()).success(function(data) {
+    window.alert(data.message);
+    document.location.reload(true); 
+  });
+});
 
 </script>

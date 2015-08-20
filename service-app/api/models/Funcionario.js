@@ -25,6 +25,11 @@ module.exports = {
       required: true,
       defaultsTo: 1
     },
+    ativo: {
+      type: "boolean",
+      required: true,
+      defaultsTo: true
+    },
   },
 
   toJSON: function() {
@@ -51,7 +56,7 @@ module.exports = {
   },
 
   listar: function(callback) {
-    Funcionario.find(function(err, result) {
+    Funcionario.find({autoridade: {'!': 2}, ativo: true}, function(err, result) {
       if (err) return callback(err, null);
       return callback(null, result);
     });
@@ -60,7 +65,8 @@ module.exports = {
   listarFiltro: function(query, callback) {
     if (query.nome == undefined) return this.listar(callback);
     var myQuery = Funcionario.find();
-    var whereFilter = {}
+    var whereFilter = {};
+    whereFilter.autoridade = {'!': 2};
     if (query.tipo != 'Todos') {
       whereFilter.tipo = query.tipo;
     }
@@ -71,7 +77,7 @@ module.exports = {
       whereFilter.nome = {contains: query.nome};
       whereFilter.email = {contains: query.nome};
     }
-    console.log(whereFilter);
+    whereFilter.ativo = query.ativo;
     if (Object.keys(whereFilter).length != 0) {
       myQuery.where({or: [whereFilter]});
     }
@@ -90,10 +96,10 @@ module.exports = {
 
   atualizar: function(user, callback) {
     Funcionario.findOne({email: user.email}).exec(function(err, found){
-      if (err) return callback(1, null);
+      if (err) return callback(err, null);
       if (found && found.id != user.id) return callback({erro: 2, message: 'Email já cadastrado!'}, null);
       Funcionario.update({id: user.id}, user).exec(function (err, updated) {
-        if (err) return callback(1, null);
+        if (err) return callback(err, null);
         return callback(null, updated);
       });
     });

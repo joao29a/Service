@@ -1,20 +1,40 @@
 <!DOCTYPE html>
 <form method="post" action="/consulta/funcionario">
-  <input type="text" name="busca" value="<%- busca.nome %>" placeholder="Insira nome ou email">
-  <input type="submit" value="Buscar">
-  <br><label for="tipo">Tipo Funcionário:</label>
-  <select name="tipo" id="select-tipo">
-    <option value="Todos">Todos</option>
-    <option value="Atendente">Atendente</option>
-    <option value="Técnico">Técnico</option>
-  </select>
-  <br><label for="tipo">Autoridade:</label>
-  <select name="autoridade" id="select-autoridade">
-    <option value="Todos">Todos</option>
-    <option value="1">Normal</option>
-    <option value="0">Administrador</option>
-  </select>
-
+  <table>
+    <thead>
+      <tr>
+	<th><label for="tipo">Tipo Funcionário:</label></th>
+	<th><label for="autoridade">Autoridade:</label></th>
+	<th><label for="ativo">Estado da conta:</label></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+	<th style="padding:0 15px 0 0px;">
+	  <select name="tipo" class="form-control" style="width:200px;" id="select-tipo">
+	    <option value="Todos">Todos</option>
+	    <option value="Atendente">Atendente</option>
+	    <option value="Técnico">Técnico</option>
+	  </select>
+	</th>
+	<th style="padding:0 15px 0 0px;">
+	  <select name="autoridade" class="form-control" style="width:200px;" id="select-autoridade">
+	    <option value="Todos">Todos</option>
+	    <option value="1">Normal</option>
+	    <option value="0">Administrador</option>
+	  </select>
+	</th>
+	<th style="padding:0 15px 0 0px;">
+	  <select name="ativo" class="form-control" style="width:200px;" id="select-ativo">
+	    <option value="true">Ativada</option>
+	    <option value="false">Desativada</option>
+	  </select>
+	</th>
+      </tr>
+    </tbody>
+  </table>
+  <br><input type="text" name="busca" class="form-control" style="width:200px;" value="<%- busca.nome %>" placeholder="Insira nome ou email">
+  <br><input type="submit" class="btn btn-default" value="Buscar">
 </form>
 <br><h2>Lista</h2>
 <% if (!erro) { %>
@@ -56,6 +76,7 @@
     <% if (busca.tipo != undefined) { %>
       $("#select-tipo").val("<%- busca.tipo %>");
       $("#select-autoridade").val("<%- busca.autoridade %>");
+      $("#select-ativo").val("<%- busca.ativo %>");
     <% } %>
   });
 

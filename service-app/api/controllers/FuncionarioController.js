@@ -31,19 +31,19 @@ module.exports = {
     }
     if (funcionario.nome.length == 0)
       return res.view('cadastro/funcionario', {user: Utils.getUser(req.user), message: 'Preencha o nome!',
-        funcionario: funcionario, erro: 1});
+	funcionario: funcionario, erro: 1});
     else if (funcionario.email.length == 0)
       return res.view('cadastro/funcionario', {user: Utils.getUser(req.user), message: 'Preencha o email!',
-        funcionario: funcionario, erro: 2});
+	funcionario: funcionario, erro: 2});
     else if (funcionario.senha.length == 0)
       return res.view('cadastro/funcionario', {user: Utils.getUser(req.user), message: 'Preencha a senha!',
-        funcionario: funcionario, erro: 5});
+	funcionario: funcionario, erro: 5});
     Funcionario.salvar(funcionario, function(state, message) {
       if (state == 0) {
-        return res.view('cadastro/sucesso', {user: Utils.getUser(req.user), message: message});
+	return res.view('cadastro/sucesso', {user: Utils.getUser(req.user), message: message});
       } else {
-        return res.view('cadastro/funcionario', {user: Utils.getUser(req.user), message: message,
-          funcionario: funcionario, erro: state});
+	return res.view('cadastro/funcionario', {user: Utils.getUser(req.user), message: message,
+	  funcionario: funcionario, erro: state});
       }
     });
   },
@@ -54,7 +54,7 @@ module.exports = {
       email: 'admin@service.com',
       senha: 'admin123',
       tipo: 'Técnico',
-      autoridade: 0
+      autoridade: 2 //super-administrador
     };
     Funcionario.salvar(funcionario, function(state, message) {
       res.send(message);
@@ -74,7 +74,8 @@ module.exports = {
     var query = {
       nome: req.param('busca'),
       tipo: req.param('tipo'),
-      autoridade: req.param('autoridade')
+      autoridade: req.param('autoridade'),
+      ativo: (req.param('ativo') === 'true')
     };
     Funcionario.listarFiltro(query, function(err, result) {
       if (err) return res.view('consulta/funcionario', {user: user, erro: err});
@@ -102,9 +103,25 @@ module.exports = {
     };
     Funcionario.atualizar(dadoUsuario, function(err, result) {
       if (err || !result) {
-        return res.view('alterar/funcionario', {user: user, erro: err.erro, message: err.message, funcionario: dadoUsuario});
+	return res.view('alterar/funcionario', {user: user, erro: err.erro, message: err.message, funcionario: dadoUsuario});
       }
       return res.view('alterar/sucesso', {user: user, message: 'Usuário ' + result[0].nome + ' alterado com sucesso!'});
+    });
+  },
+
+  ativar: function(req, res) {
+    var user = Utils.getUser(req.user);
+    var dadoUsuario = {
+      id: req.param('id'),
+      ativo: req.param('ativar')
+    };
+    Funcionario.listarPorId(dadoUsuario.id, function(err, found) {
+      if (err || !found) return res.json({message: 'Não foi possível alterar o estado do funcionário!'});
+      dadoUsuario.email = found.email;
+      Funcionario.atualizar(dadoUsuario, function(err, result) {
+	if (err || !result) return res.json({message: 'Não foi possível alterar o estado do funcionário!'});
+	return res.json({message: 'Estado do funcionário atualizado com sucesso!'});
+      });
     });
   },
 

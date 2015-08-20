@@ -80,6 +80,8 @@ module.exports.routes = {
   '/consulta/funcionario/:id': 'FuncionarioController.mostrar',
   
   '/alterar/funcionario/:id': 'FuncionarioController.alterar',
+  
+  '/alterar/funcionario/:id/:ativar': 'FuncionarioController.ativar',
 
   // Novo
   '/consulta/maquina/:id': 'MaquinaController.mostrar',

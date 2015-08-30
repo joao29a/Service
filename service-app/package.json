@@ -24,7 +24,7 @@
     "sails-disk": "~0.10.0",
     "sails-mysql": "*",
     "bcrypt": "*",
-    "passport": "*",
+    "passport": "0.2.*",
     "passport-local": "*",
     "passport-remember-me": "*"
   },

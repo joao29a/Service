@@ -1,7 +1,32 @@
 <!DOCTYPE html>
 <form method="post" action="/consulta/maquina">
-    <input type="text" name="busca" value="<%- busca.nome %>" placeholder="Insira Fabricante, Modelo ou Dono">
-    <input type="submit" value="Buscar">
+	<table>
+		<thead>
+			<tr>
+		<th><label for="tipo">Tipo da Busca:</label></th>
+		<th><label for="tipo">Estado da Máquina:</label></th>
+			</tr>
+		</thead>
+	<tbody>
+		<tr>
+	<th style="padding:0 15px 0 0px;">
+	  <select name="tipo" class="form-control" style="width:200px;" id="select-tipo">
+	    <option value="Fabricante">Fabricante</option>
+	    <option value="Modelo">Modelo</option>
+	    <option value="Dono">Dono</option>
+	  </select>
+	</th>
+	<th style="padding:0 15px 0 0px;">
+	  <select name="ativo" class="form-control" style="width:200px;" id="select-ativo">
+	    <option value="true">Ativada</option>
+	    <option value="false">Desativada</option>
+	  </select>
+	</th>
+		</tr>
+	</tbody>
+	</table>
+    <br><input type="text" name="busca" class="form-control" style="width:200px;" value="<%- busca.nome %>" placeholder="Insira dados da busca">
+    <br><input type="submit" class="btn btn-default" value="Buscar">
 </form>
 
 <br><h2>Lista</h2>
@@ -23,14 +48,14 @@
         <% for (var i in data) { %>
         <% var j = i %>
         <tr>
-        <th scope="row"><%- ++j %></th>
-        <td><a href="/consulta/maquina/<%- data[i].id %>"><%- data[i].fabricante%></a></td>
-        <td><%- data[i].modelo %></td> 
-        <td><%- data[i].dono %></td>
-        <td><%= data[i].video %></td>
-        <td><%= data[i].ram %></td> 
-        <td><%= data[i].processador %></td>
-        <td><%= data[i].placamae %></td>
+        	<th scope="row"><%- ++j %></th>
+		    <td><a href="/consulta/maquina/<%- data[i].id %>"><%- data[i].fabricante%></a></td>
+		    <td><%- data[i].modelo %></td> 
+		    <td><%- data[i].dono %></td>
+		    <td><%= data[i].video %></td>
+		    <td><%= data[i].ram %></td> 
+		    <td><%= data[i].processador %></td>
+		    <td><%= data[i].placamae %></td>
         </tr>
         <% } %>
         </tbody>
@@ -45,7 +70,7 @@
         $(".page-header").html("Consulta Máquina");
         <% if (busca.tipo != undefined) { %>
             $("#select-tipo").val("<%- busca.tipo %>");
-            $("#select-autoridade").val("<%- busca.autoridade %>");
+			$("#select-ativo").val("<%- busca.ativo %>");
         <% } %>
     });
 </script>

@@ -36,6 +36,11 @@ module.exports = {
         type: "string",
         required: true
     },
+    ativo: {
+        type: "boolean",
+        required: true,
+        defaultsTo: true
+    },
   },
 
   salvar: function(user, callback) {
@@ -46,7 +51,7 @@ module.exports = {
   },
 
   listar: function(callback) {
-    Maquina.find(function(err, result) {
+    Maquina.find({ativo: true}, function(err, result) {
         if (err) return callback(err, null);
         return callback(null, result);
     });
@@ -57,15 +62,22 @@ module.exports = {
     var myQuery = Maquina.find();
     var whereFilter = {}
 
-    if (query.nome.lenght > 0) {
+    if (query.tipo == 'Fabricante') {
         whereFilter.fabricante = {contains: query.nome};
-        whereFilter.modelo = {contains: query.nome};
+    }
+
+    if (query.tipo == 'Modelo') {
+        whereFilter.modelo = {contains: query.nome}; 
+    }
+
+    if (query.tipo == 'Dono') {
         whereFilter.dono = {contains: query.nome};
     }
 
+    whereFilter.ativo = query.ativo;
     if (Object.keys(whereFilter).lenght != 0) {
         myQuery.where({or: [whereFilter]});
-    } 
+    }
     myQuery.exec(function(err, result) {
         if (err) return callback(err, null);
         return callback(null, result);

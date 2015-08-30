@@ -1,5 +1,19 @@
 <!DOCTYPE html>
 <div class="form-view">
+  <label for="ativo">Estado da conta: </label>
+  <% if (maquina.ativo) { %>
+    Ativada 
+    <% if (user.autoridade === 0 || user.autoridade === 2) { %>
+      	<br><button type="submit" class="btn btn-danger ativar-button" value="false">Desativar Máquina</button>
+    <% } %>
+  <% } else { %>
+    Desativada
+    <% if (user.autoridade === 0 || user.autoridade === 2) { %>
+     	<br><button type="submit" class="btn btn-danger ativar-button" value="true">Ativar Máquina</button>
+   	<% } %>
+  <% } %>
+  <br><br>
+
   <form method="post" action="/alterar/maquina/<%- maquina.id %>">
     
         <div id="div-fabricante" class="form-group" style="width:300px">
@@ -65,5 +79,54 @@
 <script>
 $(document).ready(function() {
     $(".page-header").html("Alterar Máquina");
+});
+$("#erroFabricante").hide();
+$("#erroModelo").hide();
+$("#erroDono").hide();
+$("#erroVideo").hide();
+$("#erroRam").hide();
+$("#erroProcessador").hide();
+$("#erroPlacamae").hide();
+
+<% if (erro == 1) { %>
+	$("#div-fabricante").attr("class", "has-error");
+	$("#erroFabricante").show();
+<% } %>
+
+<% if (erro == 2) { %>
+	$("#div-modelo").attr("class", "has-error");
+	$("#erroModelo").show();
+<% } %>
+
+<% if (erro == 3) { %>
+	$("#div-dono").attr("class", "has-error");
+	$("#erroDono").show();
+<% } %>
+
+<% if (erro == 4) { %>
+	$("#div-video").attr("class", "has-error");
+	$("#erroVideo").show();
+<% } %>
+
+<% if (erro == 5) { %>
+	$("#div-ram").attr("class", "has-error");
+	$("#erroRam").show();
+<% } %>
+
+<% if (erro == 6) { %>
+	$("#div-processador").attr("class", "has-error");
+	$("#erroProcessador").show();
+<% } %>
+
+<% if (erro == 7) { %>
+	$("#div-placamae").attr("class", "has-error");
+	$("#erroPlacamae").show();
+<% } %>
+
+$(".ativar-button").click(function() {
+  $.get("/alterar/maquina/<%- maquina.id %>/" + $(".ativar-button").val()).success(function(data) {
+    window.alert(data.message);
+    document.location.reload(true); 
+  });
 });
 </script>

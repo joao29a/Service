@@ -15,10 +15,11 @@
   <br><br>
 
   <form method="post" action="/alterar/maquina/<%- maquina.id %>">
-    
-        <div id="div-fabricante" class="form-group" style="width:300px">
+    <input type="hidden" name="ativo" value="<%- maquina.ativo %>">
+        
+    <div id="div-fabricante" class="form-group" style="width:300px">
         <label for="exampleInputFabricante1">* Fabricante:</label>
-        <input type="text" name="fabricante" value="<%- maquina.fabricante %>" id="inputFabricante" name="Fabricante" placeholder="Fabricante">
+        <input type="text" name="fabricante" value="<%- maquina.fabricante %>" id="inputFabricante" name="Fabricante" placeholder="Fabricante" required>
             <div id="erroFabricante" style="color:red;">
                 <%- message %>
             </div>
@@ -26,7 +27,7 @@
 
         <div id="div-modelo" class="form-group" style="width:300px">
         <label for="exampleInputModelo1">* Modelo:</label>
-        <input type="text" name="modelo" value="<%- maquina.modelo %>"id="inputModelo" name="Modelo" placeholder="Modelo">
+        <input type="text" name="modelo" value="<%- maquina.modelo %>"id="inputModelo" name="Modelo" placeholder="Modelo" required>
             <div id="erroModelo" style="color:red;">
                 <%- message %>
             </div>
@@ -34,7 +35,7 @@
 
         <div id="div-dono" class="form-group" style="width:300px">
         <label for="exampleInputDono1">* Dono:</label>
-        <input type="text" name="dono" value="<%- maquina.dono %>" id="inputDono" name="Dono" placeholder="Dono">
+        <input type="text" name="dono" value="<%- maquina.dono %>" id="inputDono" name="Dono" placeholder="Dono" required>
             <div id="erroDono" style="color:red;">
                 <%- message %>
             </div>
@@ -42,7 +43,7 @@
 
         <div id="div-video" class="form-group" style="width:300px">
         <label for="exampleInputVideo1">* Vídeo:</label>
-        <input type="text" name="video" value="<%- maquina.video %>" id="inputVideo" name="Video" placeholder="Vídeo">
+        <input type="text" name="video" value="<%- maquina.video %>" id="inputVideo" name="Video" placeholder="Vídeo" required>
             <div id="erroVideo" style="color:red;">
                 <%- message %>
             </div>
@@ -50,7 +51,7 @@
 
         <div id="div-ram" class="form-group" style="width:300px">
         <label for="exampleInputRam1">* RAM:</label>
-        <input type="text" name="ram" value="<%- maquina.ram %>" id="inputRam" name="RAM" placeholder="RAM">
+        <input type="text" name="ram" value="<%- maquina.ram %>" id="inputRam" name="RAM" placeholder="RAM" required>
             <div id="erroRam" style="color:red;">
                 <%- message %>
             </div>
@@ -58,7 +59,7 @@
 
         <div id="div-processador" class="form-group" style="width:300px">
         <label for="exampleInputProcessador1">* Processador:</label>
-        <input type="text" name="processador" value="<%- maquina.processador %>" id="inputProcessador" name="Processador" placeholder="Processador">
+        <input type="text" name="processador" value="<%- maquina.processador %>" id="inputProcessador" name="Processador" placeholder="Processador" required>
             <div id="erroProcessador" style="color:red;">
                 <%- message %>
             </div>
@@ -66,7 +67,7 @@
 
         <div id="div-placamae" class="form-group" style="width:300px">
         <label for="exampleInputPlacamae1">* Placa-mãe:</label>
-        <input type ="text" name="placamae" value="<%- maquina.placamae %>" id="inputPlacamae" name="Placamae" placeholder="Placa-mãe">
+        <input type ="text" name="placamae" value="<%- maquina.placamae %>" id="inputPlacamae" name="Placamae" placeholder="Placa-mãe" required>
             <div id="erroPlacamae" style="color:red;">
                 <%- message %>
             </div>
@@ -98,7 +99,7 @@ $("#erroPlacamae").hide();
 	$("#erroModelo").show();
 <% } %>
 
-<% if (erro == 3) { %>
+<% if (erro == 3)  { %>
 	$("#div-dono").attr("class", "has-error");
 	$("#erroDono").show();
 <% } %>

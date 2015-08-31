@@ -35,12 +35,14 @@
         <thead>
             <tr>
                 <th>#</th>
+                <th>ID</th>
                 <th>Tipo</th>
                 <th>Nome</th>
                 <th>Endereço</th>
                 <th>Identificador</th>
                 <th>Telefone</th>
                 <th>Email</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -48,12 +50,14 @@
         <% var j = i %>
         <tr>
         	    <th scope="row"><%- ++j %></th>
+                    <td><%- data[i].id %></td>
 		    <td><%- data[i].tipo %></td>
                     <td><a href="/consulta/cliente/<%- data[i].id %>"><%- data[i].nome %></a></td> 
 		    <td><%- data[i].endereco %></td>
 		    <td><%= data[i].identificador %></td>
 		    <td><%= data[i].telefone %></td> 
 		    <td><%= data[i].email %></td>
+                    <td><a href="/cadastro/maquina/<%- data[i].id %>">Cadastrar Máquina</a></td> 
         </tr>
         <% } %>
         </tbody>

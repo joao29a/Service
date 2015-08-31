@@ -95,7 +95,8 @@ module.exports = {
       endereco: req.param('endereco'),
       identificador: req.param('identificador'),
       telefone: req.param('telefone'),
-      email: req.param('email')
+      email: req.param('email'),
+      ativo: req.param('ativo')
     };
     Cliente.atualizar(dadoUsuario, function(err, result) {
       if (err || !result) {

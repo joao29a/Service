@@ -21,8 +21,8 @@
         </div>
 
         <div id="div-dono" class="form-group" style="width:300px">
-        <label for="exampleInputDono1">* Dono:</label>
-        <input type="text" class="form-control" value="<%- maquina.dono %>" id="inputDono" name="dono" placeholder="Dono">
+        <label for="exampleInputDono1">* Cliente:</label>
+        <input type="text" class="form-control" value="<%- maquina.dono %>" id="inputDono" name="dono" placeholder="ID, CPF ou CNPJ">
             <div id="erroDono" style="color:red;">
                 <%- message %>
             </div>
@@ -88,7 +88,7 @@
         $("#erroModelo").show();
     <% } %>
 
-    <% if (erro == 3) { %>
+    <% if (erro == 3 || erro == 11) { %>
         $("#div-dono").attr("class", "has-error");
         $("#erroDono").show();
     <% } %>

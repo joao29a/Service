@@ -8,10 +8,11 @@
 module.exports = {
     
     index: function (req, res) {
+      var dono = req.param('id') != undefined ? req.param('id') : '';
         var maquina = {
             fabricante: '',
             modelo: '',
-            dono: '',
+            dono: dono,
             video: '',
             ram: '',
             processador: '',
@@ -108,7 +109,8 @@ module.exports = {
             video: req.param('video'),
             ram: req.param('ram'),
             processador: req.param('processador'),
-            placamae: req.param('placamae')
+            placamae: req.param('placamae'),
+            ativo: req.param('ativo')
         };
         Maquina.atualizar(dadoUsuario, function(err, result) {
             if (err || !result) {

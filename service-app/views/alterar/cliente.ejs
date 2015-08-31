@@ -14,6 +14,7 @@
   <% } %>
   <br><br>
   <form method="post" action="/alterar/cliente/<%- cliente.id %>">
+    <input type="hidden" name="ativo" value="<%- cliente.ativo %>">
 
 	<div class="form-group">
       <label for="tipo">Tipo da conta</label>

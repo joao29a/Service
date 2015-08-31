@@ -51,7 +51,7 @@
         	<th scope="row"><%- ++j %></th>
 		    <td><a href="/consulta/maquina/<%- data[i].id %>"><%- data[i].fabricante%></a></td>
 		    <td><%- data[i].modelo %></td> 
-		    <td><%- data[i].dono %></td>
+                    <td><a href="/consulta/cliente/<%- data[i].dono %>"><%- data[i].dono%></a></td>
 		    <td><%= data[i].video %></td>
 		    <td><%= data[i].ram %></td> 
 		    <td><%= data[i].processador %></td>

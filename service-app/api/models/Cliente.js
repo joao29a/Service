@@ -40,6 +40,10 @@ module.exports = {
         required: true,
         defaultsTo: true
     },
+    maquinas: {
+      collection: "maquina",
+      via: "dono"
+    },
   },
 
   salvar: function(user, callback) {

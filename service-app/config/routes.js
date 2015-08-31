@@ -51,6 +51,7 @@ module.exports.routes = {
 
   // Maquina
   'get /cadastro/maquina': 'MaquinaController.index',
+  'get /cadastro/maquina/:id': 'MaquinaController.index',
   //
 
   // Cliente

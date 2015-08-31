@@ -73,14 +73,9 @@ module.exports = {
     if (query.autoridade != 'Todos') {
       whereFilter.autoridade = query.autoridade;
     }
-    if (query.nome.length > 0) {
-      whereFilter.nome = {contains: query.nome};
-      whereFilter.email = {contains: query.nome};
-    }
     whereFilter.ativo = query.ativo;
-    if (Object.keys(whereFilter).length != 0) {
-      myQuery.where({or: [whereFilter]});
-    }
+    myQuery.where(whereFilter)
+            .where({or: [{nome: {contains: query.nome}}, {email: {contains: query.nome}}]});
     myQuery.exec(function(err, result) {
       if (err) return callback(err, null);
       return callback(null, result);

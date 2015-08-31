@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <div class="form-view">
-  <label for="ativo">Estado da conta: </label>
+  <label for="ativo">Estado da Máquina: </label>
   <% if (maquina.ativo) { %>
-    Ativada 
+    Pendente
     <% if (user.autoridade === 0 || user.autoridade === 2) { %>
-      	<br><button type="submit" class="btn btn-danger ativar-button" value="false">Desativar Máquina</button>
+      	<br><button type="submit" class="btn btn-danger ativar-button" value="false">Finalizar Máquina</button>
     <% } %>
   <% } else { %>
-    Desativada
+    Finalizada
     <% if (user.autoridade === 0 || user.autoridade === 2) { %>
-     	<br><button type="submit" class="btn btn-danger ativar-button" value="true">Ativar Máquina</button>
+     	<br><button type="submit" class="btn btn-danger ativar-button" value="true">Resgatar Máquina</button>
    	<% } %>
   <% } %>
   <br><br>

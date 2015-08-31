@@ -128,10 +128,13 @@ module.exports = {
             ativo: req.param('ativar')
         };
         Maquina.listarPorId(dadoUsuario.id, function(err, found) {
-            if (err || !found) return res.json({message: 'Não foi possível alterar o estado do funcionário!'});
+            if (err || !found) return res.json({message: 'Não foi possível alterar o estado da Máquina!'});
+            sails.log('1');
             Maquina.atualizar(dadoUsuario, function(err, result) {
-                if ( err || !result) return res.json({message: 'Não foi possível alterar  o estado do funcionário! '});
-                return res.json({message: 'Estado do funcionário atualizado com sucesso!'});
+                sails.log(err);
+                sails.log(result)
+                if ( err || !result) return res.json({message: 'Não foi possível alterar o estado da Máquina! '});
+                return res.json({message: 'Estado da Máquina atualizado com sucesso!'});
             });
         });
     },

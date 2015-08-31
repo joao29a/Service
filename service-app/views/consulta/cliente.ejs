@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<form method="post" action="/consulta/cliente">
+	<table>
+		<thead>
+			<tr>
+		<th><label for="tipo">Tipo da Busca:</label></th>
+		<th><label for="tipo">Estado da Conta:</label></th>
+			</tr>
+		</thead>
+	<tbody>
+		<tr>
+	<th style="padding:0 15px 0 0px;">
+	  <select name="tipo" class="form-control" style="width:200px;" id="select-tipo">
+	    <option value="Nome">Nome</option>
+	    <option value="CNPJ">CNPJ</option>
+	    <option value="CPF">CPF</option>
+	  </select>
+	</th>
+	<th style="padding:0 15px 0 0px;">
+	  <select name="ativo" class="form-control" style="width:200px;" id="select-ativo">
+	    <option value="true">Ativada</option>
+	    <option value="false">Desativada</option>
+	  </select>
+	</th>
+		</tr>
+	</tbody>
+	</table>
+    <br><input type="text" name="busca" class="form-control" style="width:200px;" value="<%- busca.nome %>" placeholder="Insira dados da busca">
+    <br><input type="submit" class="btn btn-default" value="Buscar">
+</form>
+
+<br><h2>Lista</h2>
+<% if (!erro) { %>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tipo</th>
+                <th>Nome</th>
+                <th>Endereço</th>
+                <th>Identificador</th>
+                <th>Telefone</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% for (var i in data) { %>
+        <% var j = i %>
+        <tr>
+        	    <th scope="row"><%- ++j %></th>
+		    <td><%- data[i].tipo %></td>
+                    <td><a href="/consulta/cliente/<%- data[i].id %>"><%- data[i].nome %></a></td> 
+		    <td><%- data[i].endereco %></td>
+		    <td><%= data[i].identificador %></td>
+		    <td><%= data[i].telefone %></td> 
+		    <td><%= data[i].email %></td>
+        </tr>
+        <% } %>
+        </tbody>
+    </table>
+<% } else { %>
+    <% erro %>
+<% } %>
+
+<script>
+    $(document).ready(function() {
+        $("#consulta").attr("class", "active");
+        $(".page-header").html("Consulta de Cliente");
+        <% if (busca.tipo != undefined) { %>
+            $("#select-tipo").val("<%- busca.tipo %>");
+			$("#select-ativo").val("<%- busca.ativo %>");
+        <% } %>
+    });
+</script>

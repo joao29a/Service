@@ -129,7 +129,7 @@ module.exports = {
             if (err || !found) return res.json({message: 'Não foi possível alterar o estado do funcionário!'});
             Maquina.atualizar(dadoUsuario, function(err, result) {
                 if ( err || !result) return res.json({message: 'Não foi possível alterar  o estado do funcionário! '});
-                return res.json({message: 'Estado do funcionário atualizado comsucesso!'});
+                return res.json({message: 'Estado do funcionário atualizado com sucesso!'});
             });
         });
     },

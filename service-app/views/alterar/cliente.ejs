@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<div class="form-view">
+  <label for="ativo">Estado da conta: </label>
+  <% if (cliente.ativo) { %>
+	Ativada
+	<% if (user.autoridade === 0) { %>
+		<br><button type="submit" class="btn btn-danger ativar-button" value="false">Desativar conta</button>
+    <% } %>
+  <% } else { %>
+	Desativada
+	<% if (user.autoridade === 0) { %>
+		<br><button type="submit" class="btn btn-danger ativar-button" value="true">Ativar conta</button>
+	<% } %>
+  <% } %>
+  <br><br>
+  <form method="post" action="/alterar/cliente/<%- cliente.id %>">
+
+	<div class="form-group">
+      <label for="tipo">Tipo da conta</label>
+      <br>
+      <select name="tipo" id="select-tipo">
+        <option value="Empresa" >Empresa</option>
+        <option value="Pessoa física">Pessoa física</option>
+      </select> 
+    </div>
+
+	<br><br>
+    <div id="div-nome" class="form-group" style="width:300px">
+		<label for="exampleInputNome1">Nome:</label>
+     	<input type="text" class="form-control" value="<%- cliente.nome %>" id="inputNome" name="nome" placeholder="Nome" required>
+		<div id="erroNome" style="color:red;">
+        	<%- message %>
+		</div>
+    </div>
+
+	<div id="div-endereco" class="form-group" style="width:300px">
+		<label for="exampleInputEndereco1">Endereço:</label>
+     	<input type="text" class="form-control" value="<%- cliente.endereco %>" id="inputEndereco" name="endereco" placeholder="Endereço" required>
+		<div id="erroEndereco" style="color:red;">
+        	<%- message %>
+		</div>
+    </div>
+
+	<div id="div-identificador" class="form-group" style="width:300px">
+		<label for="exampleInputIdentificador1">Identificador:</label>
+     	<input type="text" class="form-control" value="<%- cliente.identificador %>" id="inputIdentificador" name="identificador" placeholder="Identificador" required>
+		<div id="erroIdentificador" style="color:red;">
+        	<%- message %>
+		</div>
+    </div>
+
+	<div id="div-telefone" class="form-group" style="width:300px">
+		<label for="exampleInputTelefone1">Telefone:</label>
+     	<input type="text" class="form-control" value="<%- cliente.telefone %>" id="inputTelefone" name="telefone" placeholder="Telefone" required>
+		<div id="erroTelefone" style="color:red;">
+        	<%- message %>
+		</div>
+    </div>
+
+	<div id="div-email" class="form-group" style="width:300px">
+		<label for="exampleInputEmail1">Email:</label>
+     	<input type="text" class="form-control" value="<%- cliente.email %>" id="inputEmail" name="email" placeholder="Email">
+		<div id="erroEmail" style="color:red;">
+        	<%- message %>
+		</div>
+    </div>
+
+	<button type="submit" class="btn btn-default">Alterar</button>
+
+  </form>
+</div>
+
+<script>
+$(document).ready( function() {
+	$(".page-header").html("Alterar Cliente");
+});
+$("#select-tipo").val("<%- cliente.tipo %>");
+
+$("#erroNome").hide();
+$("#erroEndereco").hide();
+$("#erroIdentificador").hide();
+$("#erroTelefone").hide();
+$("#erroEmail").hide();
+
+<% if (erro == 1) { %>
+	$("#div-nome").attr("class", "has-error");
+    $("#erroNome").show();
+<% } %>
+
+<% if (erro == 2) { %>
+	$("#div-endereco").attr("class", "has-error");
+    $("#erroEndereco").show();
+<% } %>
+
+<% if (erro == 3) { %>
+	$("#div-identificador").attr("class", "has-error");
+    $("#erroIdentificador").show();
+<% } %>
+
+<% if (erro == 4) { %>
+	$("#div-telefone").attr("class", "has-error");
+    $("#erroTelefone").show();
+<% } %>
+
+<% if (erro == 5) { %>
+	$("#div-email").attr("class", "has-error");
+    $("#erroEmail").show();
+<% } %>
+
+$(".ativar-button").click(function() {
+  $.get("/alterar/cliente/<%- cliente.id %>/" + $(".ativar-button").val()).success(function(data) {
+    window.alert(data.message);
+    document.location.reload(true); 
+  });
+});
+
+</script>

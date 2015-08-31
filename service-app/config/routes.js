@@ -53,10 +53,18 @@ module.exports.routes = {
   'get /cadastro/maquina': 'MaquinaController.index',
   //
 
+  // Cliente
+  'get /cadastro/cliente': 'ClienteController.index',
+  //
+
   'post /cadastro/funcionario/criar': 'FuncionarioController.criar',
 
   // Maquina
   'post /cadastro/maquina/criar': 'MaquinaController.criar',
+  //
+
+  // Cliente
+  'post /cadastro/cliente/criar': 'ClienteController.criar',
   //
 
   'get /login': 'AuthController.login',
@@ -71,10 +79,18 @@ module.exports.routes = {
   'get /consulta/maquina': 'MaquinaController.listar',
   //
 
+  // Cliente
+  'get /consulta/cliente': 'ClienteController.listar',
+  //
+
   'post /consulta/funcionario': 'FuncionarioController.listarFiltro',
   
   // Maquina
   'post /consulta/maquina': 'MaquinaController.listarFiltro',
+  //
+
+  // Cliente
+  'post /consulta/cliente': 'ClienteController.listarFiltro',
   //
 
   '/consulta/funcionario/:id': 'FuncionarioController.mostrar',
@@ -88,6 +104,15 @@ module.exports.routes = {
 
   '/alterar/maquina/:id': 'MaquinaController.alterar',
 
-  '/alterar/maquina/:id/:ativar': 'MaquinaController.ativar'
+  '/alterar/maquina/:id/:ativar': 'MaquinaController.ativar',
   //
+
+  // Cliente
+  '/consulta/cliente/:id': 'ClienteController.mostrar',
+
+  '/alterar/cliente/:id': 'ClienteController.alterar',
+
+  '/alterar/cliente/:id/:ativar': 'ClienteController.ativar'
+  //
+
 };

@@ -125,14 +125,14 @@ module.exports = {
         var user = Utils.getUser(req.user);
         var dadoUsuario = {
             id: req.param('id'),
-            ativo: req.param('ativar')
+            ativo: (req.param('ativar') == 'true')
         };
+        sails.log(req.param('ativo'));
+        sails.log(dadoUsuario);
         Maquina.listarPorId(dadoUsuario.id, function(err, found) {
             if (err || !found) return res.json({message: 'Não foi possível alterar o estado da Máquina!'});
-            sails.log('1');
-            Maquina.atualizar(dadoUsuario, function(err, result) {
-                sails.log(err);
-                sails.log(result)
+            found.ativo = dadoUsuario.ativo;
+            Maquina.atualizar(found, function(err, result) {
                 if ( err || !result) return res.json({message: 'Não foi possível alterar o estado da Máquina! '});
                 return res.json({message: 'Estado da Máquina atualizado com sucesso!'});
             });

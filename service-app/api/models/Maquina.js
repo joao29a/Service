@@ -99,8 +99,9 @@ module.exports = {
     Cliente.findOne().where({or: [{id: user.dono}, {identificador: user.dono}]}).exec(function(err, found) {
       if (err) return callback(1, null);
       if (!found) return callback({erro: 3, message: "Cliente não encontrado!"}, null);
-      user.dono = found.id;;
+      user.dono = found;
       Maquina.update({id: user.id}, user).exec(function (err, updated) {
+        sails.log(updated);
         if (err) return callback(1, null);
         return callback(null, updated);
       });

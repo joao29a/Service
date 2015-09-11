@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<form method="post" action="/consulta/produto">
+  <table>
+    <theaddd>
+      <tr>
+       <th><label for="ativo">Estado do produto:</label></th>
+     </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <th style="padding:0 15px 0 0px;">
+       <select name="ativo" class="form-control" style="width:200px;" id="select-ativo">
+         <option value="true">Ativado</option>
+         <option value="false">Desativado</option>
+       </select>
+     </th>
+   </tr>
+ </tbody>
+</table>
+<br><input type="text" name="busca" class="form-control" style="width:200px;" value="<%- busca.nome %>" placeholder="Nome, marca ou modelo">
+<br><input type="submit" class="btn btn-default" value="Buscar">
+</form>
+<br><h2>Lista</h2>
+<% if (!erro) { %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nome</th>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Valor R$</th>
+      <th>Quantidade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (var i in data) { %>
+    <% var j = i %>
+    <tr>
+      <th scope="row"><%- ++j %></th>
+      <td><a href="/consulta/produto/<%- data[i].id %>"><%- data[i].nome %></a></td>
+      <td><%- data[i].marca %></td>
+      <td><%- data[i].modelo %></td>
+      <td><%- data[i].valor %></td>
+      <td><%- data[i].quantidade %></td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+<% } else { %>
+<% erro %>
+<% } %> 
+
+<script>
+$(document).ready(function() {
+  $("#consulta").attr("class", "active");
+  $(".page-header").html("Consulta Produto");
+  <% if (busca.ativo != undefined) { %>
+    $("#select-ativo").val("<%- busca.ativo %>");
+  <% } %>
+  });
+
+</script>

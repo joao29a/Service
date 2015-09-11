@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<div class="form-view">
+  <label for="ativo">Estado do produto: </label>
+  <% if (produto.ativo) { %>
+  Ativado 
+  <% if (user.autoridade === 0 || user.autoridade === 2) { %>
+  <br><button type="submit" class="btn btn-danger ativar-button" value="false">Desativar produto</button>
+  <% } %>
+  <% } else { %>
+  Desativado
+  <% if (user.autoridade === 0 || user.autoridade === 2) { %>
+  <br><button type="submit" class="btn btn-danger ativar-button" value="true">Ativar produto</button>
+  <% } %>
+  <% } %>
+  <br><br>
+  <form method="post" action="/alterar/produto/<%- produto.id %>">
+    <div id="div-nome" class="form-group" style="width:300px">
+      <label for="exampleInputNome1">Nome do Produto</label>
+      <input type="text" class="form-control" value="<%- produto.nome %>" id="inputNome" name="nome" placeholder="Nome" required>
+    </div>
+    <div id="div-marca" class="form-group" style="width:300px">
+      <label for="exampleInputMarca1">Marca</label>
+      <input type="text" name="marca" class="form-control" value="<%- produto.marca %>" id="inputMarca" placeholder="Marca" required>
+      <div id="erroMarca" style="color:red;">
+        <%- message %>
+      </div>
+    </div>
+    <div id="div-modelo" class="form-group" style="width:300px">
+      <label for="exampleInputModelo1">Modelo</label>
+      <input type="text" name="modelo" class="form-control" value="<%- produto.modelo %>" id="inputModelo" placeholder="Modelo" required>
+      <div id="erroModelo" style="color:red;">
+        <%- message %>
+      </div>
+    </div>
+    <div id="div-quantidade" class="form-group" style="width:300px">
+      <label for="exampleInputQuantidade1">Quantidade</label>
+      <input type="number" name="quantidade" min="0" class="form-control" value="<%- produto.quantidade %>" id="inputQuantidade" placeholder="Quantidade em estoque" required>
+      <div id="erroQuantidade" style="color:red;">
+        <%- message %>
+      </div>
+    </div>
+    <div id="div-valor" class="form-group" style="width:300px">
+      <label for="exampleInputValor1">Valor R$ </label>
+      <input type="number" step="0.01" min="0" name="valor" class="form-control" value="<%- produto.valor %>" id="inputValor" placeholder="Valor unitário" required>
+      <div id="erroValor" style="color:red;">
+        <%- message %>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-default">Alterar</button>
+  </form>
+</div>
+
+<script>
+$(document).ready(function() {
+  $(".page-header").html("Alterar Produto");
+});
+$("#erroNome").hide();
+$("#erroMarca").hide();
+$("#erroModelo").hide();
+$("#erroValor").hide();
+$("#erroQuantidade").hide();
+<% if (erro == 3 || erro == 4) { %>
+  $("#div-nome").attr("class", "has-error");
+  $("#erroNome").show();
+<% } %>
+  $(".ativar-button").click(function() {
+    $.get("/alterar/produto/<%- produto.id %>/" + $(".ativar-button").val()).success(function(data) {
+      window.alert(data.message);
+      document.location.reload(true); 
+    });
+  });
+
+  </script>

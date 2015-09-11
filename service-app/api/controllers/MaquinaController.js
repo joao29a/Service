@@ -60,7 +60,7 @@ module.exports = {
         Maquina.salvar(maquina, function(state, message) {
             if (state == 0) {
                 /* verificar essas views */
-                return res.view('cadastro/sucesso', {user: Utils.getUser(req.user), message: message});
+                return res.view('cadastro/sucesso', {user: Utils.getUser(req.user), message: message, tipoCadastro: 'Máquina'});
             } else {
                 return res.view('cadastro/maquina', {user: Utils.getUser(req.user), message: message, 
                     maquina: maquina, erro: state});
@@ -117,7 +117,7 @@ module.exports = {
                 return res.view('alterar/maquina', {user: user, erro: err.erro,
                     message: err.message, maquina: dadoUsuario});
             }
-            return res.view('alterar/sucesso', {user: user, message: 'Maquina alterada!'});
+            return res.view('alterar/sucesso', {user: user, tipoAlterar: 'Máquina', message: 'Maquina alterada!'});
         });
     },
 

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>Service</title>
+  <title>Service</title>
 
-    
-    <script src="/js/vendor/jquery-2.1.4.min.js"></script>
+
+  <script src="/js/vendor/jquery-2.1.4.min.js"></script>
     <!--  
         Stylesheets and Preprocessors
         ==============================
@@ -31,7 +31,7 @@
             + Change the order of your CSS files
             + Import stylesheets from other directories
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
-    -->
+          -->
 
     <!-- <style>
       .dropdown-menu li:hover {
@@ -52,58 +52,60 @@
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
-	<div class="navbar-header">
-	  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-	    <span class="sr-only">Toggle navigation</span>
-	    <span class="icon-bar"></span>
-	    <span class="icon-bar"></span>
-	    <span class="icon-bar"></span>
-	  </button>
-	  <a class="navbar-brand" href="/">Service</a>
-	</div>
-	<div id="navbar" class="navbar-collapse collapse">
-	  <ul class="nav navbar-nav navbar-right">
-	    <li><a id="usuario-logado" href="#"></a></li>
-	    <li><a href="/logout">Sair</a></li>
-	  </ul>
+       <div class="navbar-header">
+         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="/">Service</a>
+       </div>
+       <div id="navbar" class="navbar-collapse collapse">
+         <ul class="nav navbar-nav navbar-right">
+           <li><a id="usuario-logado" href="#"></a></li>
+           <li><a href="/logout">Sair</a></li>
+         </ul>
 	  <!-- <form class="navbar-form navbar-right">
 	    <input type="text" class="form-control" placeholder="Search...">
 	  </form> -->
 	</div>
-      </div>
-    </nav>
+</div>
+</nav>
 
-    <div class="container-fluid">
-      <div class="row">
-	<div class="col-sm-3 col-md-2 sidebar">
-	  <ul class="nav nav-sidebar">
-	    <li id="homepage"><a href="/">Home</a></li>
-	  </ul>
-	  <ul class="nav nav-sidebar">
-	    <li id="cadastro" class="dropdown">
-	    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cadastro <span class="caret"></span></a>
-	      <ul class="dropdown-menu">
-		<li><a href="/cadastro/funcionario">Funcionário</a></li>
-		<li><a href="/cadastro/cliente">Cliente</a></li>
-	        <li><a href="/cadastro/maquina">Máquina</a></li>
-              </ul>
-	    </li>
-	    <li id="consulta" class="dropdown">
-	    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultar <span class="caret"></span></a>
-	      <ul class="dropdown-menu">
-		<li><a href="/consulta/funcionario">Funcionário</a></li>
-		<li><a href="/consulta/cliente">Cliente</a></li>
-                <li><a href="/consulta/maquina">Máquina</a></li>
-	      </ul>
-	    </li>
-	  </ul>
-	</div>
-	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-	  <h1 class="page-header"></h1>
-	    <%- body %>
-	</div>
-      </div>
-    </div>
+<div class="container-fluid">
+  <div class="row">
+   <div class="col-sm-3 col-md-2 sidebar">
+     <ul class="nav nav-sidebar">
+       <li id="homepage"><a href="/">Home</a></li>
+     </ul>
+     <ul class="nav nav-sidebar">
+       <li id="cadastro" class="dropdown">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cadastro <span class="caret"></span></a>
+         <ul class="dropdown-menu">
+          <li><a href="/cadastro/funcionario">Funcionário</a></li>
+          <li><a href="/cadastro/cliente">Cliente</a></li>
+          <li><a href="/cadastro/maquina">Máquina</a></li>
+          <li><a href="/cadastro/produto">Produto</a></li>
+        </ul>
+      </li>
+      <li id="consulta" class="dropdown">
+       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultar <span class="caret"></span></a>
+       <ul class="dropdown-menu">
+        <li><a href="/consulta/funcionario">Funcionário</a></li>
+        <li><a href="/consulta/cliente">Cliente</a></li>
+        <li><a href="/consulta/maquina">Máquina</a></li>
+        <li><a href="/consulta/produto">Produto</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+ <h1 class="page-header"></h1>
+ <%- body %>
+</div>
+</div>
+</div>
 
 
 
@@ -127,11 +129,11 @@
             + Use a different template engine (handlebars, jade, dust, etc.)
             + Internationalize your client-side templates using a server-side
               stringfile before they're served.
-    -->
+            -->
 
-    <!--TEMPLATES-->
-    
-    <!--TEMPLATES END-->
+            <!--TEMPLATES-->
+            
+            <!--TEMPLATES END-->
 
 
     <!--
@@ -155,17 +157,17 @@
           + Import scripts from other directories
           + Use a different preprocessor, like TypeScript
 
-    -->
+        -->
 
-    <!--SCRIPTS-->
-    <script src="/js/dependencies/sails.io.js"></script>
-    <script src="/js/vendor/bootstrap.min.js"></script>
-    <!--SCRIPTS END-->
-    
-    <script>
-      $("#usuario-logado").attr("href", "/consulta/funcionario/<%- user.id %>");
-      $("#usuario-logado").html("<%= user.email %>");
-    </script>
+        <!--SCRIPTS-->
+        <script src="/js/dependencies/sails.io.js"></script>
+        <script src="/js/vendor/bootstrap.min.js"></script>
+        <!--SCRIPTS END-->
 
-  </body>
-</html>
+        <script>
+        $("#usuario-logado").attr("href", "/consulta/funcionario/<%- user.id %>");
+        $("#usuario-logado").html("<%= user.email %>");
+        </script>
+
+      </body>
+      </html>

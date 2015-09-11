@@ -113,7 +113,22 @@ module.exports.routes = {
 
   '/alterar/cliente/:id': 'ClienteController.alterar',
 
-  '/alterar/cliente/:id/:ativar': 'ClienteController.ativar'
+  '/alterar/cliente/:id/:ativar': 'ClienteController.ativar',
   //
 
+  // Produto
+
+  'get /cadastro/produto': 'ProdutoController.index',
+
+  'post /cadastro/produto/criar': 'ProdutoController.criar',
+
+  'get /consulta/produto': 'ProdutoController.listar',
+
+  'post /consulta/produto': 'ProdutoController.listarFiltro',
+
+  '/consulta/produto/:id': 'ProdutoController.mostrar',
+  
+  '/alterar/produto/:id': 'ProdutoController.alterar',
+  
+  '/alterar/produto/:id/:ativar': 'ProdutoController.ativar',
 };

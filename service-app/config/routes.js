@@ -131,4 +131,11 @@ module.exports.routes = {
   '/alterar/produto/:id': 'ProdutoController.alterar',
   
   '/alterar/produto/:id/:ativar': 'ProdutoController.ativar',
+
+  //teste Relatorio
+  '/relatorios/estoque/:id' : 'ProdutoController.mostrarData',
+
+  'get /relatorios/estoque' : 'ProdutoController.listarTData',
+
+  'post /relatorios/estoque' : 'ProdutoController.listarData'
 };

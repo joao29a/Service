@@ -44,6 +44,28 @@
     });
   },
 
+  //teste
+  listarTData: function(req, res) {
+    var user = Utils.getUser(req.user);
+    Produto.listar(function(err, result) {
+      if (err) return res.view('relatorios/estoque', {user: user, erro: err, busca: ''});
+      return res.view('relatorios/estoque', {user: user, erro: '', data: result, busca: ''});
+    });
+  },
+
+  //teste
+  listarData: function(req, res) {
+    var user = Utils.getUser(req.user);
+    var query = {
+        from: req.param('from'),
+        to: req.param('to')
+    }
+    Produto.listarData(query, function(err, result) {
+        if (err) return res.view('relatorios/estoque', {user: user, erro: err, busca: ''})
+        return res.view('relatorios/estoque', {user: user, erro: '', data: result, busca: ''})
+    });
+  },
+
   listarFiltro: function(req, res) {
     var user = Utils.getUser(req.user);
     var query = {
@@ -62,6 +84,16 @@
     Produto.listarPorId(id, function(err, result) {
       if (err || !result) return res.view('404', {layout: ''});
       return res.view('alterar/produto', {user: user, erro: '', message: '', produto: result});
+    });
+  },
+
+  //Teste
+  mostrarData: function(req, res) {
+    var user = Utils.getUser(req.user);
+    var id = req.param('id');
+    Produto.listarPorId(id, function(err, result) {
+      if (err || !result) return res.view('404', {layout: ''});
+      return res.view('relatorios/estoque', {user: user, erro: '', message: '', produto: result});
     });
   },
 

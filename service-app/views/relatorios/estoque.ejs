@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<form method="post" action="/relatorios/estoque">
+  <table>
+    <thead>
+      <tr>
+       <th><label for="from">Mês de Inicio do Relatório:</label></th>
+       <th><label for="to">Mês de Término do Relatório:</label></th>
+     </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <th style="padding:0 15px 0 0px;">
+       <select name="from" class="form-control" style="width:200px;"id="select-from">
+         <option value="2015-01-01T00:00:01.000Z">Janeiro</option>
+         <option value="2015-02-01T00:00:01.000Z">Fevereiro</option>
+         <option value="2015-03-01T00:00:01.000Z">Março</option>
+         <option value="2015-04-01T00:00:01.000Z">Abril</option>
+         <option value="2015-05-01T00:00:01.000Z">Maio</option>
+         <option value="2015-06-01T00:00:01.000Z">Junho</option>
+         <option value="2015-07-01T00:00:01.000Z">Julho</option>
+         <option value="2015-08-01T00:00:01.000Z">Agosto</option>
+         <option value="2015-09-01T00:00:01.000Z">Setembro</option>
+         <option value="2015-10-01T00:00:01.000Z">Outubro</option>
+         <option value="2015-11-01T00:00:01.000Z">Novembro</option>
+         <option value="2015-12-01T00:00:01.000Z">Dezembro</option>
+       </select>
+     </th>
+     <th style="padding:0 15px 0 0px;">
+       <select name="to" class="form-control" style="width:200px;"id="select-to">
+         <option value="2015-01-31T00:00:00.000Z">Janeiro</option>
+         <option value="2015-02-28T00:00:00.000Z">Fevereiro</option>
+         <option value="2015-03-31T00:00:00.000Z">Março</option>
+         <option value="2015-04-30T00:00:00.000Z">Abril</option>
+         <option value="2015-05-31T00:00:00.000Z">Maio</option>
+         <option value="2015-06-30T00:00:00.000Z">Junho</option>
+         <option value="2015-07-31T00:00:00.000Z">Julho</option>
+         <option value="2015-08-31T00:00:00.000Z">Agosto</option>
+         <option value="2015-09-30T00:00:00.000Z">Setembro</option>
+         <option value="2015-10-31T00:00:00.000Z">Outubro</option>
+         <option value="2015-11-30T00:00:00.000Z">Novembro</option>
+         <option value="2015-12-31T00:00:01.000Z">Dezembro</option>
+       </select>
+     </th>
+   </tr>
+ </tbody>
+</table>
+<br><input type="submit" class="btn btn-default" value="Emitir">
+</form>
+
+
+<br><h2>Relatório de Entrada:</h2>
+<% if (!erro) { %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nome</th>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Valor R$</th>
+      <th>Quantidade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (var i in data) { %>
+    <% var j = i %>
+    <tr>
+      <th scope="row"><%- ++j %></th>
+      <td><a href="/relatorios/estoque/<%- data[i].id %>"><%- data[i].nome %></a></td>
+      <td><%- data[i].marca %></td>
+      <td><%- data[i].modelo %></td>
+      <td><%- data[i].valor %></td>
+      <td><%- data[i].quantidade %></td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+<% } else { %>
+<% erro %>
+<% } %> 
+
+<br><h2>Relatório de Saída:</h2>
+<% if (!erro) { %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nome</th>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Valor R$</th>
+      <th>Quantidade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (var i in data) { %>
+    <% var j = i %>
+    <tr>
+      <th scope="row"><%- ++j %></th>
+      <td><a href="/relatorios/estoque/<%- data[i].id %>"><%- data[i].nome %></a></td>
+      <td><%- data[i].marca %></td>
+      <td><%- data[i].modelo %></td>
+      <td><%- data[i].valor %></td>
+      <td><%- data[i].quantidade %></td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+<% } else { %>
+<% erro %>
+<% } %>
+
+<script>
+$(document).ready(function() {
+  $("#relatorios").attr("class", "active");
+  $(".page-header").html("Relatório Estoque");
+  <% if (busca.from != undefined) { %>
+    $("#select-from").val("<%- busca.from %>");
+    $("#select-to").val("<%- busca.to %>");
+  <% } %>
+  });
+</script>

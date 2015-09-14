@@ -58,7 +58,8 @@
     var user = Utils.getUser(req.user);
     var query = {
         from: req.param('from'),
-        to: req.param('to')
+        to: req.param('to'),
+        ano: req.param('ano')
     }
     Produto.listarData(query, function(err, result) {
         if (err) return res.view('relatorios/estoque', {user: user, erro: err, busca: ''})

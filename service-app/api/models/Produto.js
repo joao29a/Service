@@ -89,9 +89,7 @@ module.exports = {
 
   //teste
   listarData: function(query, callback) {
-    sails.log(new Date(query.from));
-    sails.log(new Date(query.to));
-    Produto.find({ createdAt: { '>=': new Date(query.from), '<': new Date(query.to) } }, function (err, result) {
+    Produto.find({ createdAt: { '>=': new Date(query.ano.concat(query.from)), '<': new Date(query.ano.concat(query.to)) } }, function (err, result) {
         if (err) return callback(err, null);
         sails.log(result);
         return callback(null, result);

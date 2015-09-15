@@ -9,7 +9,7 @@ module.exports = {
     },
     situacao: {
       type: "string",
-      enum: ['Aberta', 'Finalizada', 'Cancelada']
+      enum: ['Aberta', 'Finalizada']
     },
     valor: {
       type: "float",
@@ -62,4 +62,12 @@ module.exports = {
       });
     });
   },
+
+  remover: function(id, callback) {
+    Pedido.destroy({id: id}).exec(function(err) {
+      if (!err) PedidoItens.removerPedido(id, function(err) {
+        if (!err) return callback(null);
+      });
+    });
+  }
 }

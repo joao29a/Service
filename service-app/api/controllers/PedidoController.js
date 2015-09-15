@@ -73,4 +73,28 @@ module.exports = {
       });
     });
   },
+
+  removerProduto: function(req, res) {
+    var user = Utils.getUser(req.user);
+    var pedido_item = {
+      id_produto: req.param('id_produto'),
+      id_pedido: req.param('id')
+    };
+    PedidoItens.remover(pedido_item, function(err) {
+      if (!err) {
+        Pedido.atualizarTotal(pedido_item.id_pedido, function(err, atualizado) {
+          if (err) return res.json({sucesso: false, erro: err});
+          res.json({sucesso: true});
+        });
+      }
+    });
+  },
+
+  cancelarPedido: function(req, res) {
+    var user = Utils.getUser(req.user);
+    var id_pedido = req.param('id');
+    Pedido.remover(id_pedido, function(err) {
+      if (!err) res.json({sucesso: true});
+    });
+  }
 };

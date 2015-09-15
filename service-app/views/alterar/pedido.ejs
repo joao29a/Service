@@ -16,9 +16,9 @@
         <input type="submit" class="btn btn-default" value="Fechar pedido">
       </form></th>
       <th><div style="width:20px"></div></th>
-      <th><form method="get" action="#">
-        <input type="submit" class="btn btn-default" value="Cancelar pedido">
-      </form></th>
+      <th>
+        <input onClick="cancelar()" type="submit" class="btn btn-default" value="Cancelar pedido">
+      </th>
     </tr>
   </thead>
 </table>
@@ -49,7 +49,7 @@
       <td><%- pedido.itens[i].id_produto.valor %></td>
       <td><%- pedido.itens[i].quantidade %></td>
       <td><%- total %></td>
-      <td><a href="#">Remover</a>
+      <td><a onClick="remover('<%- pedido.itens[i].id_produto.nome %>','<%- pedido.itens[i].id_produto.id %>')" href="#">Remover</a>
         <br><a href="#">Alterar Quantidade</a>
       </td> 
     </tr>
@@ -61,4 +61,31 @@
 $(document).ready(function() {
   $(".page-header").html("Pedido Nº <%- pedido.id %>");
 });
+
+function remover(nome, id_produto) {
+  if (confirm('Deseja remover o produto \'' + nome + '\'?')) {
+    $.ajax({
+      url: '/venda/pedido/<%- pedido.id %>/remover/' + id_produto,
+      success: function(data) {
+        if (data.sucesso) {
+          window.location.reload();
+        }
+      }
+    });
+  }
+}
+
+function cancelar() {
+  if (confirm('Deseja cancelar o pedido Nº <%- pedido.id %>?')) {
+    $.ajax({
+      url: '/venda/pedido/<%- pedido.id %>/cancelar',
+      success: function(data) {
+        if (data.sucesso) {
+          window.location.replace('/consulta/cliente');        
+        }
+      }
+    });
+  }
+}
+
 </script>

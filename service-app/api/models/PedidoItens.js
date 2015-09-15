@@ -40,5 +40,19 @@ module.exports = {
     });
   },
 
+  remover: function(pedido_item, callback) {
+    PedidoItens.destroy({id_pedido: pedido_item.id_pedido, id_produto: pedido_item.id_produto}).exec(function(err) {
+      if (!err) return callback(null);
+      return callback(err);
+    });
+  },
+
+  removerPedido: function(id_pedido, callback) {
+    PedidoItens.destroy({id_pedido: id_pedido}).exec(function(err) {
+      if (!err) return callback(null);
+      return callback(err);
+    });
+  }
+
 };
 

@@ -88,16 +88,6 @@
     });
   },
 
-  //Teste
-  mostrarData: function(req, res) {
-    var user = Utils.getUser(req.user);
-    var id = req.param('id');
-    Produto.listarPorId(id, function(err, result) {
-      if (err || !result) return res.view('404', {layout: ''});
-      return res.view('relatorios/estoque', {user: user, erro: '', message: '', produto: result});
-    });
-  },
-
   alterar: function (req, res) {
     var user = Utils.getUser(req.user);
     var dadoProduto = {

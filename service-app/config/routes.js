@@ -133,7 +133,7 @@ module.exports.routes = {
   '/alterar/produto/:id/:ativar': 'ProdutoController.ativar',
 
   //teste Relatorio
-  '/relatorios/estoque/:id' : 'ProdutoController.mostrarData',
+  '/relatorios/estoque/:id' : 'ProdutoController.mostrar',
 
   'get /relatorios/estoque' : 'ProdutoController.listarTData',
 

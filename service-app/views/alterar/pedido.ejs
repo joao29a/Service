@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<h4>Cliente: <a href="/consulta/cliente/<%- pedido.id_cliente.id %>"><%- pedido.id_cliente.nome %></a></h4>
+<h4>Quantidade de produtos: <%- pedido.itens.length %></a></h4>
+<h4>Valor pedido: R$ <%- pedido.valor %></a></h4>
+
+<table>
+  <thead>
+    <tr>
+      <th><form method="get" action="/venda/pedido/<%- pedido.id %>">
+        <input type="hidden" name="adicionar" value="1">
+        <input type="submit" class="btn btn-default" value="Adicionar produtos">
+      </form></th>
+      <th><div style="width:20px"></div></th>
+      <th><form method="get" action="#">
+        <input type="submit" class="btn btn-default" value="Fechar pedido">
+      </form></th>
+      <th><div style="width:20px"></div></th>
+      <th><form method="get" action="#">
+        <input type="submit" class="btn btn-default" value="Cancelar pedido">
+      </form></th>
+    </tr>
+  </thead>
+</table>
+
+<br><h2>Itens</h2>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nome</th>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Valor Unitário R$</th>
+      <th>Quantidade</th>
+      <th>Total R$</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (var i in pedido.itens) { %>
+    <% var j = i %>
+    <% var total = pedido.itens[i].quantidade * pedido.itens[i].id_produto.valor; %>
+    <tr>
+      <th scope="row"><%- ++j %></th>
+      <td><a href="/consulta/produto/<%- pedido.itens[i].id_produto.id %>"><%- pedido.itens[i].id_produto.nome %></a></td>
+      <td><%- pedido.itens[i].id_produto.marca %></td>
+      <td><%- pedido.itens[i].id_produto.modelo %></td>
+      <td><%- pedido.itens[i].id_produto.valor %></td>
+      <td><%- pedido.itens[i].quantidade %></td>
+      <td><%- total %></td>
+      <td><a href="#">Remover</a>
+        <br><a href="#">Alterar Quantidade</a>
+      </td> 
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<script>
+$(document).ready(function() {
+  $(".page-header").html("Pedido Nº <%- pedido.id %>");
+});
+</script>

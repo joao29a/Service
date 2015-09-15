@@ -137,5 +137,15 @@ module.exports.routes = {
 
   'get /relatorios/estoque' : 'ProdutoController.listarTData',
 
-  'post /relatorios/estoque' : 'ProdutoController.listarData'
+  'post /relatorios/estoque' : 'ProdutoController.listarData',
+
+  // Realizar Venda - Pedido
+
+  'get /venda/pedido/:id' : 'PedidoController.listarProdutos',
+
+  'post /venda/pedido/:id' : 'PedidoController.listarProdutosFiltro',
+
+  '/venda/pedido/:id/adicionar/:id_produto' : 'PedidoController.adicionarProduto',
+
+  'get /consulta/pedido/:id' : 'PedidoController.mostrarPedido',
 };

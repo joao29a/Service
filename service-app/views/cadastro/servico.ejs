@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<div class="form-view">
+  <form method="post" action="/cadastro/servico/criar">
+    <div id="div-cliente" class="form-group" style="width:300px">
+      <label for="exampleInputCliente1">Código Cliente</label>
+      <input type="text" class="form-control" value="<%- servico.cliente %>" id="inputCliente" name="cliente" placeholder="Cliente" disabled>
+      <div id="erroCliente" style="color:red;">
+        <%- message %>
+      </div>
+    </div>
+    <div id="div-maquina" class="form-group" style="width:300px">
+      <label for="exampleInputMaquina1">Código Máquina</label>
+      <input type="text" class="form-control" value="<%- servico.maquina %>" id="inputMaquina" name="maquina" placeholder="Máquina" disabled>
+      <div id="erroMaquina" style="color:red;">
+        <%- message %>
+      </div>
+    </div>
+    <div id="div-problema" class="form-group" style="width:300px">
+      <label for="exampleInputEmail1">Descrição do Problema</label>
+      <input type="text" name="problema" class="form-control" value="<%- servico.problema %>" id="inputProblema" placeholder="Problema">
+      <div id="erroProblema" style="color:red;">
+        <%- message %>
+      </div>
+    </div>
+    <div class="form-group" style="width:200px">
+      <label for="exampleInputPassword1">* Senha</label>
+      <input type="password" name="senha" class="form-control" id="exampleInputPassword1" placeholder="Senha">
+      <div id="erroSenha" style="color:red;">
+        <%- message %>
+      </div>
+
+    </div>
+    <div class="form-group">
+      <label for="tipo">Tipo Funcionário</label>
+      <br>
+      <select name="tipo" id="select-tipo">
+        <option value="Atendente" >Atendente</option>
+        <option value="Técnico">Técnico</option>
+      </select> 
+    </div>
+    <div class="form-group">
+      <label for="autoridade">Autoridade</label>
+      <br>
+      <select name="autoridade" id="select-autoridade">
+        <option value="1">Normal</option>
+        <% if (user.autoridade != 1) { %>
+        <option value="0">Administrador</option>
+        <% } %>
+      </select> 
+    </div>
+    <button type="submit" class="btn btn-default">Cadastrar</button>
+  </form>
+</div>
+
+<script>
+$(document).ready(function() {
+    $("#cadastro").attr("class", "active");
+    $(".page-header").html("Geração de Ordem de Serviço");
+    });
+$("#select-tipo").val("<%- funcionario.tipo %>");
+$("#select-autoridade").val("<%- funcionario.autoridade %>");
+$("#erroNome").hide();
+$("#erroEmail").hide();
+$("#erroSenha").hide();
+<% if (erro == 1) { %>
+  $("#div-nome").attr("class", "has-error");
+  $("#erroNome").show();
+  <% } %>
+  <% if (erro == 2 || erro == 3) { %>
+    $("#div-email").attr("class", "has-error");
+    $("#erroEmail").show();
+    <% } %>
+    <% if (erro == 5) { %>
+      $("#div-senha").attr("class", "has-error");
+      $("#erroSenha").show();
+      <% } %>
+
+</script>

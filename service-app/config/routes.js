@@ -113,7 +113,55 @@ module.exports.routes = {
 
   '/alterar/cliente/:id': 'ClienteController.alterar',
 
-  '/alterar/cliente/:id/:ativar': 'ClienteController.ativar'
+  '/alterar/cliente/:id/:ativar': 'ClienteController.ativar',
   //
 
+  // Produto
+
+  'get /cadastro/produto': 'ProdutoController.index',
+
+  'post /cadastro/produto/criar': 'ProdutoController.criar',
+
+  'get /consulta/produto': 'ProdutoController.listar',
+
+  'post /consulta/produto': 'ProdutoController.listarFiltro',
+
+  '/consulta/produto/:id': 'ProdutoController.mostrar',
+  
+  '/alterar/produto/:id': 'ProdutoController.alterar',
+  
+  '/alterar/produto/:id/:ativar': 'ProdutoController.ativar',
+
+  //teste Relatorio
+  '/relatorios/estoque/:id' : 'ProdutoController.mostrar',
+
+  'get /relatorios/estoque' : 'ProdutoController.listarTData',
+
+  'post /relatorios/estoque' : 'ProdutoController.listarData',
+
+  // Realizar Venda - Pedido
+
+  'get /venda/pedido/:id' : 'PedidoController.listarProdutos',
+
+  'post /venda/pedido/:id' : 'PedidoController.listarProdutosFiltro',
+
+  '/venda/pedido/:id/adicionar/:id_produto' : 'PedidoController.adicionarProduto',
+
+  'get /consulta/pedido/:id' : 'PedidoController.mostrarPedido',
+
+  '/venda/pedido/:id/remover/:id_produto' : 'PedidoController.removerProduto',
+
+  '/venda/pedido/:id/cancelar' : 'PedidoController.cancelarPedido',
+
+  '/venda/pedido/:id/finalizar' : 'PedidoController.finalizar',
+
+  '/venda/pedido/:id/quantidade' : 'PedidoController.alterarQuantidade',
+
+  // Gerar Ordem de Serviço
+
+  '/cadastro/servico/:id' : 'ServicoController.gerar',
+
+  'post /cadastro/servico/:id/criar' : 'ServicoController.criar',
+
+  'post /alterar/servico/:id' : 'ServicoController.alterar',
 };

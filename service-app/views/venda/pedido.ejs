@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<form method="get" action="/consulta/pedido/<%- pedido.id %>">
+  <input type="submit" class="btn btn-default" value="Ver Pedido">
+</form>
+<form method="post" action="/venda/pedido/<%- pedido.id_cliente %>"a>
+<br><input type="text" name="busca" class="form-control" style="width:400px;" value="<%- busca.nome %>" placeholder="Nome, marca ou modelo">
+<br><input type="submit" class="btn btn-default" value="Buscar">
+</form>
+<br><h2>Lista</h2>
+<% if (!erro) { %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nome</th>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Valor R$</th>
+      <th>Quantidade</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (var i in data) { %>
+    <% var j = i %>
+    <tr>
+      <th scope="row"><%- ++j %></th>
+      <td><a href="/consulta/produto/<%- data[i].id %>"><%- data[i].nome %></a></td>
+      <td><%- data[i].marca %></td>
+      <td><%- data[i].modelo %></td>
+      <td><%- data[i].valor %></td>
+      <td><%- data[i].quantidade %></td>
+      <td><button onClick="verificarQuantidade('<%- data[i].id %>', '<%- data[i].quantidade %>')">Adicionar no pedido</button></td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+<% } else { %>
+<% erro %>
+<% } %> 
+
+<script>
+$(document).ready(function() {
+  $("#consulta").attr("class", "active");
+  $(".page-header").html("Adicionar Produtos - Pedido Nº <%- pedido.id %>");
+  <% if (busca.ativo != undefined) { %>
+    $("#select-ativo").val("<%- busca.ativo %>");
+  <% } %>
+  });
+
+function verificarQuantidade(id, quantidade) {
+  if (quantidade == 0) {
+    window.alert('Produto esgotado!');
+  } else {
+    $.ajax({
+      url: '/venda/pedido/<%- pedido.id %>/adicionar/' + id,
+      success: function(data) {
+        if (data.sucesso) {
+          if (!data.isInserido)
+            window.alert('Produto adicionado no pedido Nº <%- pedido.id %>');
+          else window.alert('Produto já insirido no pedido Nº <%- pedido.id %>');
+        }
+        else window.alert('Problema ao adicionar produto! Erro: ' + data.erro);
+      }
+    });
+  }
+}
+
+</script>

@@ -49,7 +49,7 @@ module.exports = {
 
     Cliente.salvar(cliente, function(state, message) {
       if (state == 0) {
-        return res.view('cadastro/sucesso', {user: Utils.getUser(req.user), message: message});
+        return res.view('cadastro/sucesso', {user: Utils.getUser(req.user), message: message, tipoCadastro: 'Cliente'});
       } else {
         return res.view('cadastro/cliente', {user: Utils.getUser(req.user), message: message,
           cliente: cliente, erro: state});
@@ -102,7 +102,7 @@ module.exports = {
       if (err || !result) {
         return res.view('alterar/cliente', {user: user, erro: err.erro, message: err.message, cliente: dadoUsuario});
       }
-      return res.view('alterar/sucesso', {user: user, message: 'Cliente ' + result[0].nome + ' alterado com sucesso!'});
+      return res.view('alterar/sucesso', {user: user, tipoAlterar: 'Cliente', message: 'Cliente ' + result[0].nome + ' alterado com sucesso!'});
     });
   },
 

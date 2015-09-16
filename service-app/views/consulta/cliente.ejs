@@ -57,7 +57,9 @@
 		    <td><%= data[i].identificador %></td>
 		    <td><%= data[i].telefone %></td> 
 		    <td><%= data[i].email %></td>
-                    <td><a href="/cadastro/maquina/<%- data[i].id %>">Cadastrar Máquina</a></td> 
+                    <td><a href="/cadastro/maquina/<%- data[i].id %>">Cadastrar Máquina</a>
+                        <br><a href="/venda/pedido/<%- data[i].id %>">Realizar Venda</a>
+                    </td> 
         </tr>
         <% } %>
         </tbody>

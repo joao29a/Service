@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<h4>Cliente: <a href="/consulta/cliente/<%- pedido.id_cliente.id %>"><%- pedido.id_cliente.nome %></a></h4>
+<h4>Quantidade de produtos: <%- pedido.quantidadeItens %></a></h4>
+<h4>Valor pedido: R$ <%- pedido.valor %></a></h4>
+
+<div class="form-group">
+  <label for="pagamento">Forma de Pagamento</label>
+  <br>
+  <select name="pagamento" id="select-pagamento">
+    <option value="Dinheiro" >Dinheiro</option>
+    <option value="Cartão de Crédito">Cartão de Crédito</option>
+  </select> 
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th><form method="get" action="/venda/pedido/<%- pedido.id_cliente.id %>">
+        <input type="hidden" name="adicionar" value="1">
+        <input type="submit" class="btn btn-default" value="Adicionar produtos">
+      </form></th>
+      <th><div style="width:20px"></div></th>
+      <th>
+        <input onClick="fechar()" type="submit" class="btn btn-default" value="Fechar pedido">
+      </th>
+      <th><div style="width:20px"></div></th>
+      <th>
+        <input onClick="cancelar()" type="submit" class="btn btn-default" value="Cancelar pedido">
+      </th>
+    </tr>
+  </thead>
+</table>
+
+<br><h2>Itens</h2>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nome</th>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Valor Unitário R$</th>
+      <th>Quantidade</th>
+      <th>Total R$</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (var i in pedido.itens) { %>
+    <% var j = i %>
+    <% var total = pedido.itens[i].quantidade * pedido.itens[i].id_produto.valor; %>
+    <tr>
+      <th scope="row"><%- ++j %></th>
+      <td><a href="/consulta/produto/<%- pedido.itens[i].id_produto.id %>"><%- pedido.itens[i].id_produto.nome %></a></td>
+      <td><%- pedido.itens[i].id_produto.marca %></td>
+      <td><%- pedido.itens[i].id_produto.modelo %></td>
+      <td><%- pedido.itens[i].id_produto.valor %></td>
+      <td><input id="inputQuantidade<%- pedido.itens[i].id_produto.id %>" type="number" onchange="quantidade('<%- pedido.itens[i].id_produto.id %>')" max="<%- pedido.itens[i].id_produto.quantidade %>" min="1" value="<%- pedido.itens[i].quantidade %>"</input>
+      </td>
+      <td><%- total %></td>
+      <td><a onClick="remover('<%- pedido.itens[i].id_produto.nome %>','<%- pedido.itens[i].id_produto.id %>')" href="#">Remover</a>
+      </td> 
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<script>
+$(document).ready(function() {
+  $(".page-header").html("Pedido Nº <%- pedido.id %>");
+});
+
+function remover(nome, id_produto) {
+  if (confirm('Deseja remover o produto \'' + nome + '\'?')) {
+    $.ajax({
+      url: '/venda/pedido/<%- pedido.id %>/remover/' + id_produto,
+      success: function(data) {
+        if (data.sucesso) {
+          window.location.reload();
+        }
+      }
+    });
+  }
+}
+
+function cancelar() {
+  if (confirm('Deseja cancelar o pedido Nº <%- pedido.id %>?')) {
+    $.ajax({
+      url: '/venda/pedido/<%- pedido.id %>/cancelar',
+      success: function(data) {
+        if (data.sucesso) {
+          window.location.replace('/consulta/cliente');        
+        }
+      }
+    });
+  }
+}
+
+function fechar() {
+  if (confirm('Deseja finalizar o pedido Nº <%- pedido.id %>?')) {
+    $.ajax({
+      url: '/venda/pedido/<%- pedido.id %>/finalizar',
+      data: {pagamento: $("#select-pagamento").val()},
+      success: function(data) {
+        console.log(data);
+        if (data.sucesso) {
+          window.alert('Pedido concluído com sucesso!');
+          window.location.replace('/consulta/cliente');
+        } else {
+          window.alert('Houve um problema ao finalizar pedido!');
+        }
+      }
+    });
+  }
+}
+
+
+function quantidade(id_produto) {
+  var quantidade = $("#inputQuantidade" + id_produto).val();
+  if (quantidade === "" || parseInt(quantidade) <= 0) return;
+  var max = $("#inputQuantidade" + id_produto).attr("max");
+  if (parseInt(quantidade) <= parseInt(max)) {
+    $.ajax({
+      url: '/venda/pedido/<%- pedido.id %>/quantidade',
+      data: {
+        id_produto: id_produto,
+        quantidade: $("#inputQuantidade" + id_produto).val()
+      },
+      success: function(data) {
+        if (data.sucesso) {
+          window.location.reload();
+        }
+      }
+    });
+  } else {
+    window.alert('Quantidade maior que estoque atual!');
+  }
+}
+
+</script>

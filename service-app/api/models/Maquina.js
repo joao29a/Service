@@ -95,6 +95,13 @@ module.exports = {
     });
   },
 
+  listarPorIdPopulate: function(id, callback) {
+    Maquina.findOne({id: id}).populate('dono').exec(function (err, found) {
+      if (err) return callback(1, null);
+      return callback(null, found);
+    });
+  },
+
   atualizar: function(user, callback) {
     Cliente.findOne().where({or: [{id: user.dono}, {identificador: user.dono}]}).exec(function(err, found) {
       if (err) return callback(1, null);

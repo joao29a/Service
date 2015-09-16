@@ -69,6 +69,10 @@ module.exports = {
       PedidoItens.listar(pedido.id, function(err, itens) {
         if (err || !itens) return res.view('404', {layout: ''});
         pedido.itens = itens;
+        pedido.quantidadeItens = 0;
+        for (var i in itens) {
+          pedido.quantidadeItens += itens[i].quantidade;
+        }
         return res.view('alterar/pedido', {user: user, erro: '', message: '', pedido: pedido});
       });
     });
@@ -117,6 +121,22 @@ module.exports = {
           }
           return res.json({sucesso: true});
         });
+      });
+    });
+  },
+
+  alterarQuantidade: function(req, res) {
+    var user = Utils.getUser(req.user);
+    var pedido_item = {
+      id_pedido: req.param('id'),
+      id_produto: req.param('id_produto'),
+      quantidade: req.param('quantidade')
+    }
+    PedidoItens.atualizarQuantidadeItem(pedido_item, function(err, item) {
+      if (err) res.json({sucesso: false, erro: err});
+      Pedido.atualizarTotal(pedido_item.id_pedido, function(err, atualizado) {
+        if (err) return res.json({sucesso: false, erro: err});
+        res.json({sucesso: true});
       });
     });
   }

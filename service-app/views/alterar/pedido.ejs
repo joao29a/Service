@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <h4>Cliente: <a href="/consulta/cliente/<%- pedido.id_cliente.id %>"><%- pedido.id_cliente.nome %></a></h4>
-<h4>Quantidade de produtos: <%- pedido.itens.length %></a></h4>
+<h4>Quantidade de produtos: <%- pedido.quantidadeItens %></a></h4>
 <h4>Valor pedido: R$ <%- pedido.valor %></a></h4>
 
 <div class="form-group">
@@ -56,10 +56,10 @@
       <td><%- pedido.itens[i].id_produto.marca %></td>
       <td><%- pedido.itens[i].id_produto.modelo %></td>
       <td><%- pedido.itens[i].id_produto.valor %></td>
-      <td><%- pedido.itens[i].quantidade %></td>
+      <td><input id="inputQuantidade<%- pedido.itens[i].id_produto.id %>" type="number" oninput="quantidade('<%- pedido.itens[i].id_produto.id %>')" max="<%- pedido.itens[i].id_produto.quantidade %>" min="1" value="<%- pedido.itens[i].quantidade %>"</input>
+      </td>
       <td><%- total %></td>
       <td><a onClick="remover('<%- pedido.itens[i].id_produto.nome %>','<%- pedido.itens[i].id_produto.id %>')" href="#">Remover</a>
-        <br><a href="#">Alterar Quantidade</a>
       </td> 
     </tr>
     <% } %>
@@ -113,6 +113,22 @@ function fechar() {
       }
     });
   }
+}
+
+
+function quantidade(id_produto) {
+  $.ajax({
+    url: '/venda/pedido/<%- pedido.id %>/quantidade',
+    data: {
+      id_produto: id_produto,
+      quantidade: $("#inputQuantidade" + id_produto).val()
+    },
+    success: function(data) {
+      if (data.sucesso) {
+        window.location.reload();
+      }
+    }
+  });
 }
 
 </script>

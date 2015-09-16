@@ -52,6 +52,17 @@ module.exports = {
       if (!err) return callback(null);
       return callback(err);
     });
+  },
+
+  atualizarQuantidadeItem: function(pedido_item, callback) {
+    PedidoItens.findOne({id_pedido: pedido_item.id_pedido, id_produto: pedido_item.id_produto}).exec(function(err, found) {
+      if (err) return callback(err, null);
+      found.quantidade = pedido_item.quantidade; 
+      PedidoItens.update({id_pedido: found.id_pedido, id_produto: found.id_produto}, found).exec(function(err, updated) {
+        if (err) return callback(err, null);
+        return callback(null, updated);
+      });
+    });
   }
 
 };

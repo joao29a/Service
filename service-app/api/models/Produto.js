@@ -79,7 +79,6 @@ module.exports = {
     Produto.findOne({nome: produto.nome}).exec(function(err, found){
       if (err) return callback(err, null);
       if (found && found.id != produto.id) return callback({erro: 2, message: 'Produto já cadastrado!'}, null);
-      produto.valor = parseFloat(produto.valor).toFixed(2);
       Produto.update({id: produto.id}, produto).exec(function (err, updated) {
         if (err) return callback(err, null);
         return callback(null, updated);

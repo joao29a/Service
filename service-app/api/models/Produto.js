@@ -60,8 +60,8 @@ module.exports = {
     var whereFilter = {};
     whereFilter.ativo = query.ativo;
     myQuery.where(whereFilter)
-            .where({or: [{nome: {contains: query.nome}}, {marca: {contains: query.nome}},
-              {modelo: {contains: query.nome}}]});
+    .where({or: [{nome: {contains: query.nome}}, {marca: {contains: query.nome}},
+      {modelo: {contains: query.nome}}]});
     myQuery.exec(function(err, result) {
       if (err) return callback(err, null);
       return callback(null, result);
@@ -90,10 +90,10 @@ module.exports = {
   //teste
   listarData: function(query, callback) {
     Produto.find({ createdAt: { '>=': new Date(query.ano.concat(query.from)), '<': new Date(query.ano.concat(query.to)) } }, function (err, result) {
-        if (err) return callback(err, null);
-        sails.log(result);
-        return callback(null, result);
+      if (err) return callback(err, null);
+      sails.log(result);
+      return callback(null, result);
     });
-  }, 
+  },
 
 };

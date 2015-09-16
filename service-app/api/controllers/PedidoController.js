@@ -96,5 +96,28 @@ module.exports = {
     Pedido.remover(id_pedido, function(err) {
       if (!err) res.json({sucesso: true});
     });
+  },
+
+  finalizar: function(req, res) {
+    var user = Utils.getUser(req.user);
+    var id = req.param('id');
+    var pagamento = req.param('pagamento');
+    Pedido.listarPorId(id, function(err, found) {
+      if (err) return res.json({sucesso: false, erro: err});
+      found.id_cliente = found.id_cliente.id;
+      found.pagamento = pagamento;
+      found.situacao = 'Finalizada';
+      Pedido.atualizar(found, function(err, updated) {
+        if (err) return res.json({sucesso: false, erro: err});
+        PedidoItens.listar(id, function(err, itens) {
+          if (err) return res.json({sucesso: false, erro: err});
+          for (var i in itens) {
+            itens[i].id_produto.quantidade -= itens[i].quantidade;
+            Produto.atualizar(itens[i].id_produto, function(err, updated) {});
+          }
+          return res.json({sucesso: true});
+        });
+      });
+    });
   }
 };

@@ -4,6 +4,15 @@
 <h4>Quantidade de produtos: <%- pedido.itens.length %></a></h4>
 <h4>Valor pedido: R$ <%- pedido.valor %></a></h4>
 
+<div class="form-group">
+  <label for="pagamento">Forma de Pagamento</label>
+  <br>
+  <select name="pagamento" id="select-pagamento">
+    <option value="Dinheiro" >Dinheiro</option>
+    <option value="Cartão de Crédito">Cartão de Crédito</option>
+  </select> 
+</div>
+
 <table>
   <thead>
     <tr>
@@ -12,9 +21,9 @@
         <input type="submit" class="btn btn-default" value="Adicionar produtos">
       </form></th>
       <th><div style="width:20px"></div></th>
-      <th><form method="get" action="#">
-        <input type="submit" class="btn btn-default" value="Fechar pedido">
-      </form></th>
+      <th>
+        <input onClick="fechar()" type="submit" class="btn btn-default" value="Fechar pedido">
+      </th>
       <th><div style="width:20px"></div></th>
       <th>
         <input onClick="cancelar()" type="submit" class="btn btn-default" value="Cancelar pedido">
@@ -82,6 +91,24 @@ function cancelar() {
       success: function(data) {
         if (data.sucesso) {
           window.location.replace('/consulta/cliente');        
+        }
+      }
+    });
+  }
+}
+
+function fechar() {
+  if (confirm('Deseja finalizar o pedido Nº <%- pedido.id %>?')) {
+    $.ajax({
+      url: '/venda/pedido/<%- pedido.id %>/finalizar',
+      data: {pagamento: $("#select-pagamento").val()},
+      success: function(data) {
+        console.log(data);
+        if (data.sucesso) {
+          window.alert('Pedido concluído com sucesso!');
+          window.location.replace('/consulta/cliente');
+        } else {
+          window.alert('Houve um problema ao finalizar pedido!');
         }
       }
     });

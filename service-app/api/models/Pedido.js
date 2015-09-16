@@ -15,6 +15,11 @@ module.exports = {
       type: "float",
       required: true,
       defaultsTo: 0.0
+    },
+    pagamento: {
+      type: "string",
+      enum: ['Dinheiro', 'Cartão de Crédito'],
+      defaultsTo: 'Dinheiro'
     }
   },
 
@@ -69,5 +74,12 @@ module.exports = {
         if (!err) return callback(null);
       });
     });
-  }
+  },
+
+  atualizar: function(pedido_item, callback) {
+    Pedido.update({id: pedido_item.id}, pedido_item).exec(function (err, updated) {
+      if (err) return callback(err, null);
+      return callback(null, updated);
+    });
+  },
 }

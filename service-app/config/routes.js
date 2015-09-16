@@ -152,4 +152,6 @@ module.exports.routes = {
   '/venda/pedido/:id/remover/:id_produto' : 'PedidoController.removerProduto',
 
   '/venda/pedido/:id/cancelar' : 'PedidoController.cancelarPedido',
+
+  '/venda/pedido/:id/finalizar' : 'PedidoController.finalizar',
 };

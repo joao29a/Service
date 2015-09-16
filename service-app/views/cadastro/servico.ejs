@@ -1,54 +1,37 @@
 <!DOCTYPE html>
 <div class="form-view">
-  <form method="post" action="/cadastro/servico/criar">
+  <form method="post" action="/cadastro/servico/<%- maquina.id %>/criar">
     <div id="div-cliente" class="form-group" style="width:300px">
       <label for="exampleInputCliente1">Código Cliente</label>
-      <input type="text" class="form-control" value="<%- servico.cliente %>" id="inputCliente" name="cliente" placeholder="Cliente" disabled>
-      <div id="erroCliente" style="color:red;">
-        <%- message %>
-      </div>
+      <input type="text" class="form-control" value="<%- maquina.dono.id %>" id="inputCliente" name="clienteId" placeholder="Cliente" readOnly="true">
     </div>
     <div id="div-maquina" class="form-group" style="width:300px">
       <label for="exampleInputMaquina1">Código Máquina</label>
-      <input type="text" class="form-control" value="<%- servico.maquina %>" id="inputMaquina" name="maquina" placeholder="Máquina" disabled>
-      <div id="erroMaquina" style="color:red;">
-        <%- message %>
-      </div>
+      <input type="text" class="form-control" value="<%- maquina.id %>" id="inputMaquina" name="maquinaId" placeholder="Máquina" readOnly="true">
     </div>
     <div id="div-problema" class="form-group" style="width:300px">
-      <label for="exampleInputEmail1">Descrição do Problema</label>
-      <input type="text" name="problema" class="form-control" value="<%- servico.problema %>" id="inputProblema" placeholder="Problema">
-      <div id="erroProblema" style="color:red;">
-        <%- message %>
-      </div>
+      <label for="exampleInputProblem1">Descrição do Problema</label>
+      <textarea class="form-control" rows="3" name="problema" value="" id="inputProblema" required>
+      </textarea>
     </div>
-    <div class="form-group" style="width:200px">
-      <label for="exampleInputPassword1">* Senha</label>
-      <input type="password" name="senha" class="form-control" id="exampleInputPassword1" placeholder="Senha">
-      <div id="erroSenha" style="color:red;">
-        <%- message %>
-      </div>
-
+    <div id="div-entrada" class="form-group" style="width:200px">
+      <label for="exampleInputEntrada1">Data de Entrada</label>
+      <input type="text" class="form-control" onChange="verificar()" value="<%- entrada %>" id="inputEntrada" name="entrada" readOnly="true" required>
     </div>
-    <div class="form-group">
-      <label for="tipo">Tipo Funcionário</label>
-      <br>
-      <select name="tipo" id="select-tipo">
-        <option value="Atendente" >Atendente</option>
-        <option value="Técnico">Técnico</option>
-      </select> 
+    <div id="div-saida" class="form-group" style="width:200px">
+      <label for="exampleInputSaida1">Data de Saída</label>
+      <input type="text" class="form-control" onChange="verificar()" value="<%- saida %>" id="inputSaida" name="saida" readOnly="true" required>
     </div>
-    <div class="form-group">
-      <label for="autoridade">Autoridade</label>
-      <br>
-      <select name="autoridade" id="select-autoridade">
-        <option value="1">Normal</option>
-        <% if (user.autoridade != 1) { %>
-        <option value="0">Administrador</option>
-        <% } %>
-      </select> 
+    <div id="div-valor" class="form-group" style="width:200px">
+      <label for="exampleInputValor1">Valor R$</label>
+      <input type="number" step="0.01" min="0" class="form-control" value="" id="inputValor" name="valor">
     </div>
-    <button type="submit" class="btn btn-default">Cadastrar</button>
+    <div id="div-erro">
+      <% if (erro) { %>
+        <%- erro %>
+      <% } %>
+    </div>
+    <button type="submit" class="btn btn-default">Gerar</button>
   </form>
 </div>
 
@@ -56,23 +39,25 @@
 $(document).ready(function() {
     $("#cadastro").attr("class", "active");
     $(".page-header").html("Geração de Ordem de Serviço");
-    });
-$("#select-tipo").val("<%- funcionario.tipo %>");
-$("#select-autoridade").val("<%- funcionario.autoridade %>");
-$("#erroNome").hide();
-$("#erroEmail").hide();
-$("#erroSenha").hide();
-<% if (erro == 1) { %>
-  $("#div-nome").attr("class", "has-error");
-  $("#erroNome").show();
-  <% } %>
-  <% if (erro == 2 || erro == 3) { %>
-    $("#div-email").attr("class", "has-error");
-    $("#erroEmail").show();
-    <% } %>
-    <% if (erro == 5) { %>
-      $("#div-senha").attr("class", "has-error");
-      $("#erroSenha").show();
-      <% } %>
+    $("#inputEntrada").datepicker({ dateFormat: 'dd/mm/yy' });
+    $("#inputSaida").datepicker({ dateFormat: 'dd/mm/yy' });
+});
+
+function getDate(data) {
+  var date = new Date();
+  date.setDate(data.split('/')[0]);
+  date.setMonth(parseInt(data.split('/')[1]) - 1);
+  date.setYear(data.split('/')[2]);
+  date.setHours(0,0,0,0);
+  return date;
+}
+
+function verificar() {
+  var dataEntrada = getDate($("#inputEntrada").val());
+  var dataSaida = getDate($("#inputSaida").val());
+  if (dataEntrada > dataSaida) {
+    $("#inputSaida").val($("#inputEntrada").val());
+  }
+}
 
 </script>

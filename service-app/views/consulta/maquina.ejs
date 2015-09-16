@@ -42,6 +42,7 @@
                 <th>RAM</th>
                 <th>Processador</th>
                 <th>Placa-mãe</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -56,6 +57,7 @@
 		    <td><%= data[i].ram %></td> 
 		    <td><%= data[i].processador %></td>
 		    <td><%= data[i].placamae %></td>
+            <td><a href="/cadastro/servico/<%- data[i].id %>">Gerar Serviço</a></td>
         </tr>
         <% } %>
         </tbody>

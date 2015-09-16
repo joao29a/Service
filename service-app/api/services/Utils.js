@@ -17,4 +17,12 @@ module.exports.getUser = function(user) {
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
+
+module.exports.getDate = function() {
+  var MyDate = new Date();
+
+  return ('0' + MyDate.getDate()).slice(-2) + '/'
+       + ('0' + (MyDate.getMonth()+1)).slice(-2) + '/'
+       + MyDate.getFullYear();
+}; 

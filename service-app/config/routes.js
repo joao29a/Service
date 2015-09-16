@@ -156,4 +156,12 @@ module.exports.routes = {
   '/venda/pedido/:id/finalizar' : 'PedidoController.finalizar',
 
   '/venda/pedido/:id/quantidade' : 'PedidoController.alterarQuantidade',
+
+  // Gerar Ordem de Serviço
+
+  '/cadastro/servico/:id' : 'ServicoController.gerar',
+
+  'post /cadastro/servico/:id/criar' : 'ServicoController.criar',
+
+  'post /alterar/servico/:id' : 'ServicoController.alterar',
 };

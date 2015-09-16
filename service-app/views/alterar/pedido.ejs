@@ -56,7 +56,7 @@
       <td><%- pedido.itens[i].id_produto.marca %></td>
       <td><%- pedido.itens[i].id_produto.modelo %></td>
       <td><%- pedido.itens[i].id_produto.valor %></td>
-      <td><input id="inputQuantidade<%- pedido.itens[i].id_produto.id %>" type="number" oninput="quantidade('<%- pedido.itens[i].id_produto.id %>')" max="<%- pedido.itens[i].id_produto.quantidade %>" min="1" value="<%- pedido.itens[i].quantidade %>"</input>
+      <td><input id="inputQuantidade<%- pedido.itens[i].id_produto.id %>" type="number" onchange="quantidade('<%- pedido.itens[i].id_produto.id %>')" max="<%- pedido.itens[i].id_produto.quantidade %>" min="1" value="<%- pedido.itens[i].quantidade %>"</input>
       </td>
       <td><%- total %></td>
       <td><a onClick="remover('<%- pedido.itens[i].id_produto.nome %>','<%- pedido.itens[i].id_produto.id %>')" href="#">Remover</a>
@@ -117,18 +117,25 @@ function fechar() {
 
 
 function quantidade(id_produto) {
-  $.ajax({
-    url: '/venda/pedido/<%- pedido.id %>/quantidade',
-    data: {
-      id_produto: id_produto,
-      quantidade: $("#inputQuantidade" + id_produto).val()
-    },
-    success: function(data) {
-      if (data.sucesso) {
-        window.location.reload();
+  var quantidade = $("#inputQuantidade" + id_produto).val();
+  if (quantidade === "" || parseInt(quantidade) <= 0) return;
+  var max = $("#inputQuantidade" + id_produto).attr("max");
+  if (parseInt(quantidade) <= parseInt(max)) {
+    $.ajax({
+      url: '/venda/pedido/<%- pedido.id %>/quantidade',
+      data: {
+        id_produto: id_produto,
+        quantidade: $("#inputQuantidade" + id_produto).val()
+      },
+      success: function(data) {
+        if (data.sucesso) {
+          window.location.reload();
+        }
       }
-    }
-  });
+    });
+  } else {
+    window.alert('Quantidade maior que estoque atual!');
+  }
 }
 
 </script>
